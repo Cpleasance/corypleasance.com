@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Footer from "@/components/Footer.astro";
 import Socials from "@/components/Socials.astro";
+import GithubHeatmap from "@/components/GithubHeatmap.astro";
 import config from "@/config";
 
 const about = await getEntry("pages", "about");
@@ -210,6 +211,11 @@ const link = "hover:text-accent underline decoration-dashed underline-offset-4";
           ))
         }
       </ul>
+    </section>
+
+    <section id="activity" class="border-border border-b py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">GitHub activity</h2>
+      <GithubHeatmap user="Cpleasance" />
     </section>
 
     <section id="tools" class="border-border border-b py-10">
