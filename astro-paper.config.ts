@@ -33,7 +33,6 @@ export default defineAstroPaperConfig({
   ],
   shareLinks: [
     { name: "linkedin", url: "https://www.linkedin.com/sharing/share-offsite/?url=", linkTitle: "Share this post on LinkedIn" },
-    { name: "x",        url: "https://x.com/intent/post?url=" },
     { name: "mail",     url: "mailto:?subject=See%20this%20post&body=" },
   ],
 });
