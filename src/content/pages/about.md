@@ -7,4 +7,4 @@ I'm Cory Pleasance, a Data Science & AI student at the University of Stirling an
 
 I write here about AI security, agent evaluation, and systems engineering.
 
-Find me on [GitHub](https://github.com/Cpleasance), connect on [LinkedIn](https://linkedin.com), or email [me@corypleasance.com](mailto:me@corypleasance.com).
+Find me on [GitHub](https://github.com/Cpleasance), connect on [LinkedIn](https://www.linkedin.com/in/cory-pleasance-b99b80205/), or email [me@corypleasance.com](mailto:me@corypleasance.com).
