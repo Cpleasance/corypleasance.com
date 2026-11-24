@@ -14,8 +14,6 @@ Over the summer I entered Kaggle's [AI Agent Security: Multi-Step Tool Attacks](
 
 This post is the short version of how. The full code, lab notebook and an IEEE-format report are [on GitHub](https://github.com/Cpleasance/kaggle-ai-agent-security).
 
-## Table of contents
-
 ## The setup
 
 Tool-using agents can search the web, read email, write files and send messages for you. That opens up failures a single-turn jailbreak test never sees: the agent reads something untrusted, and a few steps later does something it shouldn't because of it.

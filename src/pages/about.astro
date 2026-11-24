@@ -26,7 +26,7 @@ const link = "hover:text-accent underline decoration-dashed underline-offset-4";
 <Layout
   title={`${about.data.title} | ${config.site.title}`}
   description={about.data.description}
-  ogImage={about.data.ogImage}
+  ogImage={about.data.ogImage ?? "/og/about.png"}
   canonicalURL={about.data.canonicalURL}
 >
   <Header />
