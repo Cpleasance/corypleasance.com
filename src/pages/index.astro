@@ -23,6 +23,22 @@ const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 const homePath = getRelativeLocaleUrl(locale, "");
+
+const work = [
+  {
+    label: "Kaggle · Bronze medal, top 7%",
+    title: "AI Agent Security: Multi-Step Tool Attacks",
+    blurb:
+      "Found a guardrail scope mismatch in a tool-using agent and exploited it at scale. Code, lab notebook and report on GitHub.",
+    href: "https://github.com/Cpleasance/kaggle-ai-agent-security",
+  },
+  {
+    label: "Kaggle · Gemma 4 Developer Agent Paper Track",
+    title: "It Shouldn't Matter What Task Is Given",
+    blurb: "A held-out task pool and a pre-flight suite.",
+    href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181",
+  },
+];
 ---
 
 <Layout>
@@ -33,53 +49,98 @@ const homePath = getRelativeLocaleUrl(locale, "");
     data-home-path={homePath}
     class="app-layout my-1"
   >
-    <section id="hero" class="border-border border-b pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Hey there, I'm Cory
-      </h1>{" "}
-      <a
-        target="_blank"
-        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
-        class="inline-block"
-        aria-label="RSS Feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
+    <section id="hero" class="border-border border-b pt-8 pb-8">
+      <div class="my-4 flex items-center gap-4 sm:my-8 sm:gap-6">
+        <img
+          src={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}avatar.png`}
+          alt="Pixel-art portrait of Cory at a computer"
+          width="96"
+          height="96"
+          class="size-16 shrink-0 rounded-lg sm:size-24"
+          style="image-rendering: pixelated"
         />
-        <span class="sr-only">RSS Feed</span>
-      </a>
+        <div>
+          <h1 class="inline text-3xl font-bold sm:text-5xl">
+            Hey there, I'm Cory
+          </h1>{" "}
+          <a
+            target="_blank"
+            href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
+            class="inline-block"
+            aria-label="RSS Feed"
+            title="RSS Feed"
+          >
+            <IconRss
+              width={20}
+              height={20}
+              class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
+            />
+            <span class="sr-only">RSS Feed</span>
+          </a>
+          <p class="mt-2 text-sm opacity-75 sm:text-base">
+            Third-year Data Science &amp; AI student, University of Stirling
+          </p>
+        </div>
+      </div>
 
       <p>
-        I'm a third-year Data Science &amp; AI student at the University of
-        Stirling (it's a four-year degree), where I research LLM security:
-        building multi-agent systems that red-team language models, and
-        measuring how well the models hold up. I'm also a demonstrator (teaching
-        assistant) for Data Structures and Algorithms (CSCU9A3). In summer 2027 I'm joining Barclays UK
-        as a Technology Developer intern.
-      </p>
-      <p class="mt-2">
         I write here about AI security, agent evaluation, and systems
-        engineering. More{" "}
+        engineering.
+      </p>
+
+      <dl class="mt-6 grid gap-x-6 gap-y-1 sm:grid-cols-[auto_1fr] sm:gap-y-3">
+        <dt class="text-accent font-semibold">Research</dt>
+        <dd class="mb-3 sm:mb-0">
+          Building multi-agent systems that red-team language models, and
+          measuring how well the models hold up.
+        </dd>
+        <dt class="text-accent font-semibold">Teaching</dt>
+        <dd class="mb-3 sm:mb-0">
+          Demonstrator for Data Structures and Algorithms (CSCU9A3).
+        </dd>
+        <dt class="text-accent font-semibold">Next</dt>
+        <dd>Technology Developer intern at Barclays UK, summer 2027.</dd>
+      </dl>
+
+      <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+        {socials.length > 0 && <Socials />}
         <LinkButton
           class="hover:text-accent underline decoration-dashed underline-offset-4"
           href={getRelativeLocaleUrl(locale, "about")}
         >
-          about me
-        </LinkButton>.
-      </p>
-      {
-        socials.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">
-              {t.home.socialLinks}:
-            </div>
-            <Socials />
-          </div>
-        )
-      }
+          More about me
+        </LinkButton>
+      </div>
+    </section>
+
+    <section id="work" class="pt-12 pb-8">
+      <h2 class="text-2xl font-semibold tracking-wide">Selected work</h2>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          work.map(item => (
+            <li>
+              <a
+                href={item.href}
+                class="border-border hover:border-accent group block h-full rounded-lg border p-4 transition-colors"
+              >
+                <p class="text-accent text-sm">{item.label}</p>
+                <h3 class="group-hover:text-accent mt-1 font-semibold">
+                  {item.title}
+                </h3>
+                <p class="mt-2 text-sm opacity-80">{item.blurb}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-6">
+        <LinkButton
+          class="hover:text-accent underline decoration-dashed underline-offset-4"
+          href={`${getRelativeLocaleUrl(locale, "about")}#projects`}
+        >
+          All projects
+        </LinkButton>
+      </div>
     </section>
 
     {
@@ -118,12 +179,16 @@ const homePath = getRelativeLocaleUrl(locale, "");
       )
     }
 
-    <div class="my-8 text-center">
-      <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
-        {t.home.allPosts}
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
+    {
+      sortedPosts.length > 0 && (
+        <div class="my-8 text-center">
+          <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
+            {t.home.allPosts}
+            <IconArrowRight class="inline-block rtl:-rotate-180" />
+          </LinkButton>
+        </div>
+      )
+    }
   </main>
   <Footer />
 </Layout>
