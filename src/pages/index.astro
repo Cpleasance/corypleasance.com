@@ -113,35 +113,6 @@ const work = [
       </div>
     </section>
 
-    <section id="work" class="pt-12 pb-8">
-      <h2 class="text-2xl font-semibold tracking-wide">Selected work</h2>
-      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
-        {
-          work.map(item => (
-            <li>
-              <a
-                href={item.href}
-                class="border-border hover:border-accent group block h-full rounded-lg border p-4 transition-colors"
-              >
-                <p class="text-accent text-sm">{item.label}</p>
-                <h3 class="group-hover:text-accent mt-1 font-semibold">
-                  {item.title}
-                </h3>
-                <p class="mt-2 text-sm opacity-80">{item.blurb}</p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="mt-6">
-        <LinkButton
-          class="hover:text-accent underline decoration-dashed underline-offset-4"
-          href={`${getRelativeLocaleUrl(locale, "about")}#projects`}
-        >
-          All projects
-        </LinkButton>
-      </div>
-    </section>
 
     {
       featuredPosts.length > 0 && (
@@ -189,6 +160,39 @@ const work = [
         </div>
       )
     }
+
+    <section
+      id="work"
+      class:list={["pt-12 pb-8", { "border-border border-t": sortedPosts.length > 0 }]}
+    >
+      <h2 class="text-2xl font-semibold tracking-wide">Selected work</h2>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          work.map(item => (
+            <li>
+              <a
+                href={item.href}
+                class="border-border hover:border-accent group block h-full rounded-lg border p-4 transition-colors"
+              >
+                <p class="text-accent text-sm">{item.label}</p>
+                <h3 class="group-hover:text-accent mt-1 font-semibold">
+                  {item.title}
+                </h3>
+                <p class="mt-2 text-sm opacity-80">{item.blurb}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-6">
+        <LinkButton
+          class="hover:text-accent underline decoration-dashed underline-offset-4"
+          href={`${getRelativeLocaleUrl(locale, "about")}#projects`}
+        >
+          All projects
+        </LinkButton>
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>
