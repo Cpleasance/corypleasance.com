@@ -27,7 +27,7 @@ export default defineAstroPaperConfig({
   },
   socials: [
     { name: "github",   url: "https://github.com/Cpleasance" },
-    
+    { name: "kaggle",   url: "https://www.kaggle.com/cpleasance" },
     { name: "linkedin", url: "https://www.linkedin.com/in/cory-pleasance-b99b80205/" },
     { name: "mail",     url: "mailto:me@corypleasance.com" },
   ],
