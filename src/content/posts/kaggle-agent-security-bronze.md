@@ -2,15 +2,13 @@
 title: "How a guardrail scope mismatch got me a Kaggle bronze"
 description: "My solo, top-7% solution to Kaggle's AI Agent Security competition: a gap in how the guardrail tracked untrusted input, a lot of scaling, and one exploit I chose not to use."
 pubDatetime: 2026-11-24T12:00:00Z
-draft: true
+draft: false
 featured: true
 tags:
   - ai-security
   - agents
   - kaggle
 ---
-
-<!-- DRAFT: written from the GitHub repo and report. Rewrite in your own voice before publishing. -->
 
 Over the summer I entered Kaggle's [AI Agent Security: Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) competition, hosted by OpenAI, Google and IEEE. I went in solo and came out with a bronze medal: 290th of 4,186 teams, top 7%.
 
