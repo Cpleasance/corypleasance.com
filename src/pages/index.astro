@@ -35,7 +35,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
   >
     <section id="hero" class="border-border border-b pt-8 pb-6">
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
+        Hey there, I'm Cory
       </h1>{" "}
       <a
         target="_blank"
@@ -53,20 +53,22 @@ const homePath = getRelativeLocaleUrl(locale, "");
       </a>
 
       <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
+        I'm a third-year Data Science &amp; AI student at the University of
+        Stirling (it's a four-year degree), where I research LLM security:
+        building multi-agent systems that red-team language models, and
+        measuring how well the models hold up. I'm also a demonstrator (teaching
+        assistant) for Data Structures and Algorithms (CSCU9A3). In summer 2027 I'm joining Barclays UK
+        as a Technology Developer intern.
       </p>
       <p class="mt-2">
-        Read the blog posts or check{" "}
+        I write here about AI security, agent evaluation, and systems
+        engineering. More{" "}
         <LinkButton
           class="hover:text-accent underline decoration-dashed underline-offset-4"
-          href="https://github.com/satnaing/astro-paper#readme"
+          href={getRelativeLocaleUrl(locale, "about")}
         >
-          README
-        </LinkButton>{" "}
-        for more info.
+          about me
+        </LinkButton>.
       </p>
       {
         socials.length > 0 && (
