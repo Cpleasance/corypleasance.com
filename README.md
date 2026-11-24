@@ -12,13 +12,13 @@ I'm a Data Science & AI student at the University of Stirling. I write here abou
 
 ## Where things live
 
-| What | File |
-| --- | --- |
-| Site name, links, features | `astro-paper.config.ts` |
-| Home page | `src/pages/index.astro` |
-| About page | `src/pages/about.astro` (intro text in `src/content/pages/about.md`) |
-| Blog posts | `src/content/posts/*.md` |
-| Worker and domains | `wrangler.jsonc` |
+| What                       | File                                                                 |
+| -------------------------- | -------------------------------------------------------------------- |
+| Site name, links, features | `astro-paper.config.ts`                                              |
+| Home page                  | `src/pages/index.astro`                                              |
+| About page                 | `src/pages/about.astro` (intro text in `src/content/pages/about.md`) |
+| Blog posts                 | `src/content/posts/*.md`                                             |
+| Worker and domains         | `wrangler.jsonc`                                                     |
 
 A post stays hidden while its frontmatter has `draft: true`. The Posts, Tags and Archives links only appear once at least one post is published.
 

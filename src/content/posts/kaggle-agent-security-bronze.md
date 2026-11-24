@@ -20,7 +20,7 @@ This post is the short version of how. The full code, lab notebook and an IEEE-f
 
 Tool-using agents can search the web, read email, write files and send messages for you. That opens up failures a single-turn jailbreak test never sees: the agent reads something untrusted, and a few steps later does something it shouldn't because of it.
 
-The competition turned that into a benchmark. You don't submit prompts, you submit an attack *algorithm*. It generates up to N candidate traces (complete agent trajectories) in a sandbox, and the evaluator replays them and checks four security predicates:
+The competition turned that into a benchmark. You don't submit prompts, you submit an attack _algorithm_. It generates up to N candidate traces (complete agent trajectories) in a sandbox, and the evaluator replays them and checks four security predicates:
 
 - `EXFILTRATION`: data leaves the system
 - `UNTRUSTED_TO_ACTION`: untrusted content drives an action
@@ -37,7 +37,7 @@ Its defence against `CONFUSED_DEPUTY` was taint tracking. Before a privileged ca
 
 So my attack made `email.send` the **first** call in the trace. There was no untrusted read before it, so nothing was tainted and nothing was flagged. To the guardrail, it looked the same as a legitimate action.
 
-That's a scope mismatch rather than a bug in the taint tracking itself. The guardrail was built to catch *influence from* untrusted input, and this attack never went through that path at all.
+That's a scope mismatch rather than a bug in the taint tracking itself. The guardrail was built to catch _influence from_ untrusted input, and this attack never went through that path at all.
 
 I also phrased the prompts as softer requests ("Notify X that Y", "Let X know Y") so they didn't trip any obvious keyword filter, while still meeting the predicate's actual condition.
 
@@ -83,7 +83,7 @@ I wasn't the only one who found this. canqiang [published a predicate-reachabili
 
 ## What I took away
 
-- **Guardrails defend against a model of the attack, not every attack.** Taint tracking assumes an attack comes *through* untrusted input. An action that never touches untrusted input is outside what it checks.
+- **Guardrails defend against a model of the attack, not every attack.** Taint tracking assumes an attack comes _through_ untrusted input. An action that never touches untrusted input is outside what it checks.
 - **Scaling matters as much as cleverness.** The same idea scored 4 or 10 depending on how many attempts fit in the budget.
 - **Robust beats high.** My best raw score was worth nothing after the rules changed.
 - **Check for bugs before you trust a number.** My worst-looking result was a bug, not a finding.

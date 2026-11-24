@@ -47,7 +47,9 @@ export const GET: APIRoute = async ({ props, url }) => {
   ]);
 
   // 400px pixel art scaled 4:1 with nearest-neighbour so it stays crisp.
-  const avatarPng = await sharp(join(process.cwd(), "public", "avatar.png"))
+  const avatarPng = await sharp(
+    join(process.cwd(), "src", "assets", "avatar.png")
+  )
     .resize(100, 100, { kernel: "nearest" })
     .png()
     .toBuffer();
