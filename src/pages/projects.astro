@@ -82,24 +82,22 @@ const link = "hover:text-accent underline decoration-dashed underline-offset-4";
 
     <section id="projects" class="border-border border-b pb-10">
       <ul class="mt-6 grid gap-4 sm:grid-cols-2">
-        {
-          projects.map(p => (
-            <li class="border-border flex flex-col rounded-lg border p-4">
-              <p class="text-accent text-sm">{p.label}</p>
-              <h3 class="mt-1 font-semibold">{p.title}</h3>
-              {p.blurb && <p class="mt-2 text-sm opacity-80">{p.blurb}</p>}
-              {p.links && (
-                <p class="mt-auto flex flex-wrap gap-x-4 pt-3 text-sm">
-                  {p.links.map(l => (
-                    <a class={link} href={l.href}>
-                      {l.text}
-                    </a>
-                  ))}
-                </p>
-              )}
-            </li>
-          ))
-        }
+        {projects.map(p => (
+          <li class="border-border flex flex-col rounded-lg border p-4">
+            <p class="text-accent text-sm">{p.label}</p>
+            <h3 class="mt-1 font-semibold">{p.title}</h3>
+            {p.blurb && <p class="mt-2 text-sm opacity-80">{p.blurb}</p>}
+            {p.links && (
+              <p class="mt-auto flex flex-wrap gap-x-4 pt-3 text-sm">
+                {p.links.map(l => (
+                  <a class={link} href={l.href}>
+                    {l.text}
+                  </a>
+                ))}
+              </p>
+            )}
+          </li>
+        ))}
       </ul>
     </section>
 

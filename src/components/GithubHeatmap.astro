@@ -48,50 +48,48 @@ const label = (c: NonNullable<Cell>) =>
   `${c.count === 0 ? "No" : c.count} contribution${c.count === 1 ? "" : "s"} on ${fmt(c.date)}`;
 ---
 
-{
-  days && (
-    <figure class="mt-6">
-      <div
-        class="heatmap"
-        style={`--weeks: ${weeks.length}`}
-        role="img"
-        aria-label={`GitHub contribution heatmap: ${total} contributions in the past year`}
-      >
-        <div class="months" aria-hidden="true">
-          {months.map(m => (
-            <span style={`grid-column: ${m.col + 1}`}>{m.label}</span>
-          ))}
-        </div>
-        <div class="grid-days" aria-hidden="true">
-          {weeks.map(week =>
-            Array.from({ length: 7 }, (_, i) => week[i] ?? null).map(c =>
-              c ? (
-                <span class={`l${c.level}`} title={label(c)} />
-              ) : (
-                <span class="empty" />
-              )
-            )
-          )}
-        </div>
+{days && (
+  <figure class="mt-6">
+    <div
+      class="heatmap"
+      style={`--weeks: ${weeks.length}`}
+      role="img"
+      aria-label={`GitHub contribution heatmap: ${total} contributions in the past year`}
+    >
+      <div class="months" aria-hidden="true">
+        {months.map(m => (
+          <span style={`grid-column: ${m.col + 1}`}>{m.label}</span>
+        ))}
       </div>
-      <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-sm opacity-80">
-        <a
-          class="hover:text-accent underline decoration-dashed underline-offset-4"
-          href={`https://github.com/${user}`}
-        >
-          {total.toLocaleString("en-GB")} contributions in the past year
-        </a>
-        <span class="legend" aria-hidden="true">
-          Less
-          {[0, 1, 2, 3, 4].map(l => (
-            <span class={`l${l}`} />
-          ))}
-          More
-        </span>
-      </figcaption>
-    </figure>
-  )
-}
+      <div class="grid-days" aria-hidden="true">
+        {weeks.map(week =>
+          Array.from({ length: 7 }, (_, i) => week[i] ?? null).map(c =>
+            c ? (
+              <span class={`l${c.level}`} title={label(c)} />
+            ) : (
+              <span class="empty" />
+            )
+          )
+        )}
+      </div>
+    </div>
+    <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-sm opacity-80">
+      <a
+        class="hover:text-accent underline decoration-dashed underline-offset-4"
+        href={`https://github.com/${user}`}
+      >
+        {total.toLocaleString("en-GB")} contributions in the past year
+      </a>
+      <span class="legend" aria-hidden="true">
+        Less
+        {[0, 1, 2, 3, 4].map(l => (
+          <span class={`l${l}`} />
+        ))}
+        More
+      </span>
+    </figcaption>
+  </figure>
+)}
 
 <style>
   .heatmap {

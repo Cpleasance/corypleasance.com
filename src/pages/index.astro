@@ -113,52 +113,44 @@ const work = [
       </div>
     </section>
 
-    {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-12 pb-6",
-            { "border-border border-b": recentPosts.length > 0 },
-          ]}
-        >
-          <h2 class="text-2xl font-semibold tracking-wide">
-            {t.home.featured}
-          </h2>
-          <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+    {featuredPosts.length > 0 && (
+      <section
+        id="featured"
+        class:list={[
+          "pt-12 pb-6",
+          { "border-border border-b": recentPosts.length > 0 },
+        ]}
+      >
+        <h2 class="text-2xl font-semibold tracking-wide">{t.home.featured}</h2>
+        <ul>
+          {featuredPosts.map(data => (
+            <Card variant="h3" {...data} />
+          ))}
+        </ul>
+      </section>
+    )}
 
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">
-            {t.home.recentPosts}
-          </h2>
-          <ul>
-            {recentPosts.slice(0, postsConfig.perIndex).map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+    {recentPosts.length > 0 && (
+      <section id="recent-posts" class="pt-12 pb-6">
+        <h2 class="text-2xl font-semibold tracking-wide">
+          {t.home.recentPosts}
+        </h2>
+        <ul>
+          {recentPosts.slice(0, postsConfig.perIndex).map(data => (
+            <Card variant="h3" {...data} />
+          ))}
+        </ul>
+      </section>
+    )}
 
-    {
-      sortedPosts.length > 0 && (
-        <div class="my-8 text-center">
-          <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
-            {t.home.allPosts}
-            <IconArrowRight class="inline-block rtl:-rotate-180" />
-          </LinkButton>
-        </div>
-      )
-    }
+    {sortedPosts.length > 0 && (
+      <div class="my-8 text-center">
+        <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
+          {t.home.allPosts}
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
+    )}
 
     <section
       id="work"
@@ -171,22 +163,20 @@ const work = [
       <ul
         class:list={["mt-6 grid gap-4", { "sm:grid-cols-2": work.length > 1 }]}
       >
-        {
-          work.map(item => (
-            <li>
-              <a
-                href={item.href}
-                class="border-border hover:border-accent group block h-full rounded-lg border p-4 transition-colors"
-              >
-                <p class="text-accent text-sm">{item.label}</p>
-                <h3 class="group-hover:text-accent mt-1 font-semibold">
-                  {item.title}
-                </h3>
-                <p class="mt-2 text-sm opacity-80">{item.blurb}</p>
-              </a>
-            </li>
-          ))
-        }
+        {work.map(item => (
+          <li>
+            <a
+              href={item.href}
+              class="border-border hover:border-accent group block h-full rounded-lg border p-4 transition-colors"
+            >
+              <p class="text-accent text-sm">{item.label}</p>
+              <h3 class="group-hover:text-accent mt-1 font-semibold">
+                {item.title}
+              </h3>
+              <p class="mt-2 text-sm opacity-80">{item.blurb}</p>
+            </a>
+          </li>
+        ))}
       </ul>
       <div class="mt-6">
         <LinkButton
