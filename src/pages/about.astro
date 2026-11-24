@@ -151,7 +151,9 @@ const link = "hover:text-accent underline decoration-dashed underline-offset-4";
           </p>
         </div>
       </div>
-      <div class="leading-relaxed"><Content /></div>
+      <div class="leading-relaxed">
+        <Content />
+      </div>
     </section>
 
     <section id="research" class="border-border border-b py-10">
@@ -170,82 +172,85 @@ const link = "hover:text-accent underline decoration-dashed underline-offset-4";
     <section id="experience" class="border-border border-b py-10">
       <h2 class="text-2xl font-semibold tracking-wide">Experience</h2>
       <ol class="mt-6 space-y-6">
-        {
-          experience.map(e => (
-            <li class="grid gap-x-6 sm:grid-cols-[8rem_1fr]">
-              <p class="text-accent text-sm sm:pt-0.5">{e.when}</p>
-              <div>
-                <h3 class="font-semibold">{e.role}</h3>
-                <p class="text-sm opacity-75">
-                  {e.org}
-                  {e.tag && ` · ${e.tag}`}
-                </p>
-                {e.note && <p class="mt-1 text-sm opacity-80">{e.note}</p>}
-              </div>
-            </li>
-          ))
-        }
+        {experience.map(e => (
+          <li class="grid gap-x-6 sm:grid-cols-[8rem_1fr]">
+            <p class="text-accent text-sm sm:pt-0.5">{e.when}</p>
+            <div>
+              <h3 class="font-semibold">{e.role}</h3>
+              <p class="text-sm opacity-75">
+                {e.org}
+                {e.tag && ` · ${e.tag}`}
+              </p>
+              {e.note && <p class="mt-1 text-sm opacity-80">{e.note}</p>}
+            </div>
+          </li>
+        ))}
       </ol>
     </section>
 
     <section id="projects" class="border-border border-b py-10">
       <h2 class="text-2xl font-semibold tracking-wide">Projects</h2>
       <ul class="mt-6 grid gap-4 sm:grid-cols-2">
-        {
-          projects.map(p => (
-            <li class="border-border flex flex-col rounded-lg border p-4">
-              <p class="text-accent text-sm">{p.label}</p>
-              <h3 class="mt-1 font-semibold">{p.title}</h3>
-              {p.blurb && <p class="mt-2 text-sm opacity-80">{p.blurb}</p>}
-              {p.links && (
-                <p class="mt-auto flex flex-wrap gap-x-4 pt-3 text-sm">
-                  {p.links.map(l => (
-                    <a class={link} href={l.href}>
-                      {l.text}
-                    </a>
-                  ))}
-                </p>
-              )}
-            </li>
-          ))
-        }
+        {projects.map(p => (
+          <li class="border-border flex flex-col rounded-lg border p-4">
+            <p class="text-accent text-sm">{p.label}</p>
+            <h3 class="mt-1 font-semibold">{p.title}</h3>
+            {p.blurb && <p class="mt-2 text-sm opacity-80">{p.blurb}</p>}
+            {p.links && (
+              <p class="mt-auto flex flex-wrap gap-x-4 pt-3 text-sm">
+                {p.links.map(l => (
+                  <a class={link} href={l.href}>
+                    {l.text}
+                  </a>
+                ))}
+              </p>
+            )}
+          </li>
+        ))}
       </ul>
     </section>
 
     <section id="tools" class="border-border border-b py-10">
       <h2 class="text-2xl font-semibold tracking-wide">Tools I use</h2>
       <dl class="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-[8rem_1fr]">
-        {
-          tools.map(t => (
-            <>
-              <dt class="text-accent font-semibold">{t.group}</dt>
-              <dd class="mb-3 flex flex-wrap gap-2 sm:mb-0">
-                {t.items.map(i => (
-                  <span class="border-border rounded-md border px-2 py-0.5 text-sm">
-                    {i}
-                  </span>
-                ))}
-              </dd>
-            </>
-          ))
-        }
+        {tools.map(t => (
+          <>
+            <dt class="text-accent font-semibold">{t.group}</dt>
+            <dd class="mb-3 flex flex-wrap gap-2 sm:mb-0">
+              {t.items.map(i => (
+                <span class="border-border rounded-md border px-2 py-0.5 text-sm">
+                  {i}
+                </span>
+              ))}
+            </dd>
+          </>
+        ))}
       </dl>
     </section>
 
     <section id="contact" class="py-10">
       <h2 class="text-2xl font-semibold tracking-wide">Contact</h2>
       <p class="mt-4">
-        Find me on <a class={link} href="https://github.com/Cpleasance"
-          >GitHub</a
-        >, connect on <a
+        Find me on{" "}
+        <a class={link} href="https://github.com/Cpleasance">
+          GitHub
+        </a>
+        , connect on{" "}
+        <a
           class={link}
           href="https://www.linkedin.com/in/cory-pleasance-b99b80205/"
-          >LinkedIn</a
-        >, or email <a class={link} href="mailto:me@corypleasance.com"
-          >me@corypleasance.com</a
-        >.
+        >
+          LinkedIn
+        </a>
+        , or email{" "}
+        <a class={link} href="mailto:me@corypleasance.com">
+          me@corypleasance.com
+        </a>
+        .
       </p>
-      <div class="mt-4"><Socials /></div>
+      <div class="mt-4">
+        <Socials />
+      </div>
     </section>
   </main>
 

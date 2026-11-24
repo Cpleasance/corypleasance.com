@@ -15,16 +15,14 @@ const currentYear = new Date().getFullYear();
   class:list={["app-layout", { "mt-auto": !noMarginTop }, className]}
   {...attrs}
 >
-  <div
-    class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"
-  >
+  <div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4">
     <Socials />
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
       <span>&#169; {currentYear} Cory Pleasance</span>
       <span class="hidden sm:inline">&nbsp;·&nbsp;</span>
-      <span class="text-sm opacity-75 sm:text-base"
-        >Built with Astro, hosted on Cloudflare</span
-      >
+      <span class="text-sm opacity-75 sm:text-base">
+        Built with Astro, hosted on Cloudflare
+      </span>
     </div>
   </div>
 </footer>
