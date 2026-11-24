@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { fontData, experimental_getFontFileURL } from "astro:assets";
 import satori from "satori";
 import sharp from "sharp";
+import { join } from "node:path";
 import { getFontPathByWeight } from "@/utils/getFontPathByWeight";
 import { getPostSlug } from "@/utils/getPostPaths";
 import { postFilter } from "@/utils/postFilter";
@@ -45,122 +46,89 @@ export const GET: APIRoute = async ({ props, url }) => {
     ),
   ]);
 
+  // 400px pixel art scaled 4:1 with nearest-neighbour so it stays crisp.
+  const avatarPng = await sharp(
+    join(process.cwd(), "src", "assets", "avatar.png")
+  )
+    .resize(100, 100, { kernel: "nearest" })
+    .png()
+    .toBuffer();
+  const avatarDataUrl = `data:image/png;base64,${avatarPng.toString("base64")}`;
+
   const svg = await satori(
     {
       key: null,
       type: "div",
       props: {
         style: {
-          background: "#fefbfb",
+          background: "#fdfdfd",
+          boxSizing: "border-box",
           width: "100%",
           height: "100%",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          padding: "72px 80px 92px",
+          borderBottom: "20px solid #006cac",
+          color: "#282728",
         },
         children: [
           {
-            type: "div",
+            type: "p",
             props: {
               style: {
-                position: "absolute",
-                top: "-1px",
-                right: "-1px",
-                boxSizing: "border-box",
-                border: "4px solid #000",
-                background: "#ecebeb",
-                opacity: "0.9",
-                borderRadius: "4px",
-                display: "flex",
-                justifyContent: "center",
-                margin: "2.5rem",
-                width: "88%",
-                height: "80%",
+                fontSize: 64,
+                fontWeight: "bold",
+                lineHeight: 1.15,
+                margin: 0,
+                maxHeight: "300px",
+                overflow: "hidden",
               },
+              children: props.data.title,
             },
           },
           {
             type: "div",
             props: {
-              style: {
-                position: "relative",
-                boxSizing: "border-box",
-                border: "4px solid #000",
-                background: "#fefbfb",
-                borderRadius: "4px",
-                display: "flex",
-                justifyContent: "center",
-                margin: "2rem",
-                width: "88%",
-                height: "80%",
-              },
-              children: {
-                type: "div",
-                props: {
-                  style: {
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    margin: "20px",
-                    width: "90%",
-                    height: "90%",
+              style: { display: "flex", alignItems: "center" },
+              children: [
+                {
+                  type: "img",
+                  props: {
+                    src: avatarDataUrl,
+                    width: 100,
+                    height: 100,
+                    style: { borderRadius: "12px", marginRight: "28px" },
                   },
-                  children: [
-                    {
-                      type: "p",
-                      props: {
-                        style: {
-                          fontSize: 72,
-                          fontWeight: "bold",
-                          margin: "17px 0 0",
-                          maxHeight: "80%",
-                          overflow: "hidden",
-                        },
-                        children: props.data.title,
-                      },
-                    },
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          display: "flex",
-                          justifyContent: "space-between",
-                          width: "100%",
-                          marginBottom: "8px",
-                          fontSize: 28,
-                        },
-                        children: [
-                          {
-                            type: "span",
-                            props: {
-                              children: [
-                                "by ",
-                                {
-                                  type: "span",
-                                  props: {
-                                    style: {
-                                      overflow: "hidden",
-                                      fontWeight: "bold",
-                                    },
-                                    children: props.data.author,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                          {
-                            type: "span",
-                            props: {
-                              style: { overflow: "hidden", fontWeight: "bold" },
-                              children: config.site.title,
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
                 },
-              },
+                {
+                  type: "div",
+                  props: {
+                    style: { display: "flex", flexDirection: "column" },
+                    children: [
+                      {
+                        type: "span",
+                        props: {
+                          style: { fontSize: 32, fontWeight: "bold" },
+                          children: props.data.author,
+                        },
+                      },
+                      {
+                        type: "span",
+                        props: {
+                          style: {
+                            fontSize: 28,
+                            fontWeight: "bold",
+                            color: "#006cac",
+                            marginTop: "6px",
+                          },
+                          children: new URL(config.site.url).hostname,
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
             },
           },
         ],
