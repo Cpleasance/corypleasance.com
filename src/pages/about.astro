@@ -20,7 +20,13 @@ const { Content } = await render(about);
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
-type Job = { role: string; org: string; when: string; tag?: string; note?: string };
+type Job = {
+  role: string;
+  org: string;
+  when: string;
+  tag?: string;
+  note?: string;
+};
 
 const experience: Job[] = [
   {
@@ -57,16 +63,29 @@ const projects: Project[] = [
     blurb:
       "The guardrail tracked whether untrusted input influenced a later privileged action; my attack made the privileged action first, so there was nothing to trace.",
     links: [
-      { text: "Code & report", href: "https://github.com/Cpleasance/kaggle-ai-agent-security" },
-      { text: "Competition", href: "https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks" },
+      {
+        text: "Code & report",
+        href: "https://github.com/Cpleasance/kaggle-ai-agent-security",
+      },
+      {
+        text: "Competition",
+        href: "https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks",
+      },
     ],
   },
   {
     label: "Kaggle · Gemma 4 Developer Agent Paper Track",
-    title: "It Shouldn't Matter What Task Is Given: A Held-Out Task Pool, a Pre-Flight Suite",
+    title:
+      "It Shouldn't Matter What Task Is Given: A Held-Out Task Pool, a Pre-Flight Suite",
     links: [
-      { text: "Write-up", href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181" },
-      { text: "Competition", href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper" },
+      {
+        text: "Write-up",
+        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181",
+      },
+      {
+        text: "Competition",
+        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper",
+      },
     ],
   },
   {
@@ -101,8 +120,7 @@ const tools = [
   },
 ];
 
-const link =
-  "hover:text-accent underline decoration-dashed underline-offset-4";
+const link = "hover:text-accent underline decoration-dashed underline-offset-4";
 ---
 
 <Layout
@@ -162,9 +180,7 @@ const link =
                   {e.org}
                   {e.tag && ` · ${e.tag}`}
                 </p>
-                {e.note && (
-                  <p class="mt-1 text-sm opacity-80">{e.note}</p>
-                )}
+                {e.note && <p class="mt-1 text-sm opacity-80">{e.note}</p>}
               </div>
             </li>
           ))
@@ -219,10 +235,12 @@ const link =
     <section id="contact" class="py-10">
       <h2 class="text-2xl font-semibold tracking-wide">Contact</h2>
       <p class="mt-4">
-        Find me on <a class={link} href="https://github.com/Cpleasance">GitHub</a>,
-        connect on <a
+        Find me on <a class={link} href="https://github.com/Cpleasance"
+          >GitHub</a
+        >, connect on <a
           class={link}
-          href="https://www.linkedin.com/in/cory-pleasance-b99b80205/">LinkedIn</a
+          href="https://www.linkedin.com/in/cory-pleasance-b99b80205/"
+          >LinkedIn</a
         >, or email <a class={link} href="mailto:me@corypleasance.com"
           >me@corypleasance.com</a
         >.

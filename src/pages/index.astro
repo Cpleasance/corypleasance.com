@@ -113,7 +113,6 @@ const work = [
       </div>
     </section>
 
-
     {
       featuredPosts.length > 0 && (
         <section
@@ -163,7 +162,10 @@ const work = [
 
     <section
       id="work"
-      class:list={["pt-12 pb-8", { "border-border border-t": sortedPosts.length > 0 }]}
+      class:list={[
+        "pt-12 pb-8",
+        { "border-border border-t": sortedPosts.length > 0 },
+      ]}
     >
       <h2 class="text-2xl font-semibold tracking-wide">Selected work</h2>
       <ul class="mt-6 grid gap-4 sm:grid-cols-2">

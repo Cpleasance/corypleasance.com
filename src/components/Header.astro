@@ -82,22 +82,22 @@ const isActive = (path: string) => {
         {
           hasPosts && (
             <>
-        <li class="col-span-2">
-          <a
-            href={getRelativeLocaleUrl(locale, "posts")}
-            class:list={{ "active-nav": isActive("/posts") }}
-          >
-            {t.nav.posts}
-          </a>
-        </li>
-        <li class="col-span-2">
-          <a
-            href={getRelativeLocaleUrl(locale, "tags")}
-            class:list={{ "active-nav": isActive("/tags") }}
-          >
-            {t.nav.tags}
-          </a>
-        </li>
+              <li class="col-span-2">
+                <a
+                  href={getRelativeLocaleUrl(locale, "posts")}
+                  class:list={{ "active-nav": isActive("/posts") }}
+                >
+                  {t.nav.posts}
+                </a>
+              </li>
+              <li class="col-span-2">
+                <a
+                  href={getRelativeLocaleUrl(locale, "tags")}
+                  class:list={{ "active-nav": isActive("/tags") }}
+                >
+                  {t.nav.tags}
+                </a>
+              </li>
             </>
           )
         }
