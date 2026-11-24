@@ -3,8 +3,8 @@ import { getEntry, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
-import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
 import config from "@/config";
 
 const about = await getEntry("pages", "about");
@@ -15,7 +15,112 @@ if (!about) {
   );
 }
 
+// The intro paragraph lives in src/content/pages/about.md; everything else is below.
 const { Content } = await render(about);
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
+type Job = {
+  role: string;
+  org: string;
+  when: string;
+  tag?: string;
+  note?: string;
+};
+
+const experience: Job[] = [
+  {
+    role: "Demonstrator, Data Structures and Algorithms (CSCU9A3)",
+    org: "University of Stirling",
+    when: "Now",
+  },
+  {
+    role: "Technology Developer Summer Intern",
+    org: "Barclays UK",
+    when: "Summer 2027",
+    tag: "Incoming",
+  },
+  {
+    role: "Technology, Data & Innovation work experience",
+    org: "Deutsche Bank",
+    when: "2025",
+    note: "Time with the algorithmic trading team and with the GenAI and AI Architecture teams on LLM robustness in regulated environments.",
+  },
+];
+
+type Project = {
+  label: string;
+  title: string;
+  blurb?: string;
+  href?: string;
+  links?: { text: string; href: string }[];
+};
+
+const projects: Project[] = [
+  {
+    label: "Kaggle · Bronze medal, 290th of 4,186 (top 7%), solo",
+    title: "AI Agent Security: Multi-Step Tool Attacks",
+    blurb:
+      "The guardrail tracked whether untrusted input influenced a later privileged action; my attack made the privileged action first, so there was nothing to trace.",
+    links: [
+      {
+        text: "Code & report",
+        href: "https://github.com/Cpleasance/kaggle-ai-agent-security",
+      },
+      {
+        text: "Competition",
+        href: "https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks",
+      },
+    ],
+  },
+  {
+    label: "Kaggle · Gemma 4 Developer Agent Paper Track",
+    title:
+      "It Shouldn't Matter What Task Is Given: A Held-Out Task Pool, a Pre-Flight Suite",
+    links: [
+      {
+        text: "Write-up",
+        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181",
+      },
+      {
+        text: "Competition",
+        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper",
+      },
+    ],
+  },
+  {
+    label: "Numerai · Live tournament",
+    title: "Numerai Classic",
+    blurb:
+      "Competing as CPLEASANCE with a LightGBM ensemble and era-aware cross-validation, trained on a dual-RTX 3060 workstation.",
+  },
+  {
+    label: "Kaggle · 479th of 3,677 (top 13%)",
+    title: "Hull Tactical Market Prediction",
+    blurb:
+      "Forecasting the S&P 500 with LightGBM/CatBoost, using walk-forward and purged cross-validation to avoid lookahead bias.",
+  },
+  {
+    label: "Systems",
+    title: "Custom bootloader and minimal OS",
+    blurb:
+      "An x86 Assembly bootloader and bare-metal kernel, plus a FAT filesystem utility in C, debugged in Bochs.",
+  },
+];
+
+const tools = [
+  { group: "Languages", items: ["Python", "Java", "Rust", "SQL"] },
+  {
+    group: "ML",
+    items: ["PyTorch", "Hugging Face", "scikit-learn", "LightGBM", "CatBoost"],
+  },
+  {
+    group: "Infrastructure",
+    items: ["Linux", "Docker", "CUDA", "SLURM", "vLLM", "Ollama"],
+  },
+];
+
+const link = "hover:text-accent underline decoration-dashed underline-offset-4";
 ---
 
 <Layout
@@ -28,9 +133,121 @@ const { Content } = await render(about);
 
   <Breadcrumb />
 
-  <Main pageTitle={about.data.title} class="app-prose">
-    <Content />
-  </Main>
+  <main id="main-content" class="app-layout pb-4">
+    <section class="border-border border-b pb-8">
+      <div class="mb-6 flex items-center gap-4 sm:gap-6">
+        <img
+          src={`${base}avatar.png`}
+          alt="Pixel-art portrait of Cory at a computer"
+          width="96"
+          height="96"
+          class="size-16 shrink-0 rounded-lg sm:size-24"
+          style="image-rendering: pixelated"
+        />
+        <div>
+          <h1 class="text-3xl font-bold sm:text-4xl">About</h1>
+          <p class="mt-2 text-sm opacity-75 sm:text-base">
+            Data Science &amp; AI · University of Stirling · 2024–2028
+          </p>
+        </div>
+      </div>
+      <div class="leading-relaxed"><Content /></div>
+    </section>
+
+    <section id="research" class="border-border border-b py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Research</h2>
+      <div class="border-border mt-6 rounded-lg border p-4">
+        <p class="text-accent text-sm">University of Stirling · 2024–present</p>
+        <h3 class="mt-1 font-semibold">LLM security</h3>
+        <p class="mt-2 opacity-80">
+          I am currently building an automated system for testing the robustness
+          of LLMs through a collection of LLMs that can utilise multiple
+          different strategies.
+        </p>
+      </div>
+    </section>
+
+    <section id="experience" class="border-border border-b py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Experience</h2>
+      <ol class="mt-6 space-y-6">
+        {
+          experience.map(e => (
+            <li class="grid gap-x-6 sm:grid-cols-[8rem_1fr]">
+              <p class="text-accent text-sm sm:pt-0.5">{e.when}</p>
+              <div>
+                <h3 class="font-semibold">{e.role}</h3>
+                <p class="text-sm opacity-75">
+                  {e.org}
+                  {e.tag && ` · ${e.tag}`}
+                </p>
+                {e.note && <p class="mt-1 text-sm opacity-80">{e.note}</p>}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section id="projects" class="border-border border-b py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Projects</h2>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          projects.map(p => (
+            <li class="border-border flex flex-col rounded-lg border p-4">
+              <p class="text-accent text-sm">{p.label}</p>
+              <h3 class="mt-1 font-semibold">{p.title}</h3>
+              {p.blurb && <p class="mt-2 text-sm opacity-80">{p.blurb}</p>}
+              {p.links && (
+                <p class="mt-auto flex flex-wrap gap-x-4 pt-3 text-sm">
+                  {p.links.map(l => (
+                    <a class={link} href={l.href}>
+                      {l.text}
+                    </a>
+                  ))}
+                </p>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section id="tools" class="border-border border-b py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Tools I use</h2>
+      <dl class="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-[8rem_1fr]">
+        {
+          tools.map(t => (
+            <>
+              <dt class="text-accent font-semibold">{t.group}</dt>
+              <dd class="mb-3 flex flex-wrap gap-2 sm:mb-0">
+                {t.items.map(i => (
+                  <span class="border-border rounded-md border px-2 py-0.5 text-sm">
+                    {i}
+                  </span>
+                ))}
+              </dd>
+            </>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section id="contact" class="py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Contact</h2>
+      <p class="mt-4">
+        Find me on <a class={link} href="https://github.com/Cpleasance"
+          >GitHub</a
+        >, connect on <a
+          class={link}
+          href="https://www.linkedin.com/in/cory-pleasance-b99b80205/"
+          >LinkedIn</a
+        >, or email <a class={link} href="mailto:me@corypleasance.com"
+          >me@corypleasance.com</a
+        >.
+      </p>
+      <div class="mt-4"><Socials /></div>
+    </section>
+  </main>
 
   <Footer />
 </Layout>
