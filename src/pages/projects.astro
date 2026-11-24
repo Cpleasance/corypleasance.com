@@ -1,0 +1,111 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Footer from "@/components/Footer.astro";
+import GithubHeatmap from "@/components/GithubHeatmap.astro";
+import config from "@/config";
+
+type Project = {
+  label: string;
+  title: string;
+  blurb?: string;
+  href?: string;
+  links?: { text: string; href: string }[];
+};
+
+const projects: Project[] = [
+  {
+    label: "Kaggle · Bronze medal, 290th of 4,186 (top 7%), solo",
+    title: "AI Agent Security: Multi-Step Tool Attacks",
+    blurb:
+      "The guardrail tracked whether untrusted input influenced a later privileged action; my attack made the privileged action first, so there was nothing to trace.",
+    links: [
+      {
+        text: "Code & report",
+        href: "https://github.com/Cpleasance/kaggle-ai-agent-security",
+      },
+      {
+        text: "Competition",
+        href: "https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks",
+      },
+    ],
+  },
+  {
+    label: "Kaggle · Gemma 4 Developer Agent Paper Track",
+    title:
+      "It Shouldn't Matter What Task Is Given: A Held-Out Task Pool, a Pre-Flight Suite",
+    links: [
+      {
+        text: "Write-up",
+        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181",
+      },
+      {
+        text: "Competition",
+        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper",
+      },
+    ],
+  },
+  {
+    label: "Numerai · Live tournament",
+    title: "Numerai Classic",
+    blurb:
+      "Competing as CPLEASANCE with a LightGBM ensemble and era-aware cross-validation, trained on a dual-RTX 3060 workstation.",
+  },
+  {
+    label: "Kaggle · 479th of 3,677 (top 13%)",
+    title: "Hull Tactical Market Prediction",
+    blurb:
+      "Forecasting the S&P 500 with LightGBM/CatBoost, using walk-forward and purged cross-validation to avoid lookahead bias.",
+  },
+  {
+    label: "Systems",
+    title: "Custom bootloader and minimal OS",
+    blurb:
+      "An x86 Assembly bootloader and bare-metal kernel, plus a FAT filesystem utility in C, debugged in Bochs.",
+  },
+];
+
+const link = "hover:text-accent underline decoration-dashed underline-offset-4";
+---
+
+<Layout
+  title={`Projects | ${config.site.title}`}
+  description="Competitions, research code and systems projects by Cory Pleasance."
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <main id="main-content" class="app-layout pb-4">
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Projects</h1>
+
+    <section id="projects" class="border-border border-b pb-10">
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+        {projects.map(p => (
+          <li class="border-border flex flex-col rounded-lg border p-4">
+            <p class="text-accent text-sm">{p.label}</p>
+            <h3 class="mt-1 font-semibold">{p.title}</h3>
+            {p.blurb && <p class="mt-2 text-sm opacity-80">{p.blurb}</p>}
+            {p.links && (
+              <p class="mt-auto flex flex-wrap gap-x-4 pt-3 text-sm">
+                {p.links.map(l => (
+                  <a class={link} href={l.href}>
+                    {l.text}
+                  </a>
+                ))}
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="activity" class="py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">GitHub activity</h2>
+      <GithubHeatmap user="Cpleasance" />
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -160,7 +160,9 @@ const work = [
       ]}
     >
       <h2 class="text-2xl font-semibold tracking-wide">Selected work</h2>
-      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+      <ul
+        class:list={["mt-6 grid gap-4", { "sm:grid-cols-2": work.length > 1 }]}
+      >
         {work.map(item => (
           <li>
             <a
@@ -179,7 +181,7 @@ const work = [
       <div class="mt-6">
         <LinkButton
           class="hover:text-accent underline decoration-dashed underline-offset-4"
-          href={`${getRelativeLocaleUrl(locale, "about")}#projects`}
+          href={getRelativeLocaleUrl(locale, "projects")}
         >
           All projects
         </LinkButton>

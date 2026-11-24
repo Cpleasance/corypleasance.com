@@ -1,0 +1,112 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+type Job = {
+  role: string;
+  org: string;
+  when: string;
+  tag?: string;
+  note?: string;
+};
+
+const experience: Job[] = [
+  {
+    role: "Demonstrator, Data Structures and Algorithms (CSCU9A3)",
+    org: "University of Stirling",
+    when: "Now",
+  },
+  {
+    role: "Technology Developer Summer Intern",
+    org: "Barclays UK",
+    when: "Summer 2027",
+    tag: "Incoming",
+  },
+  {
+    role: "Technology, Data & Innovation work experience",
+    org: "Deutsche Bank",
+    when: "2025",
+    note: "Time with the algorithmic trading team and with the GenAI and AI Architecture teams on LLM robustness in regulated environments.",
+  },
+];
+
+const tools = [
+  { group: "Languages", items: ["Python", "Java", "Rust", "SQL"] },
+  {
+    group: "ML",
+    items: ["PyTorch", "Hugging Face", "scikit-learn", "LightGBM", "CatBoost"],
+  },
+  {
+    group: "Infrastructure",
+    items: ["Linux", "Docker", "CUDA", "SLURM", "vLLM", "Ollama"],
+  },
+];
+---
+
+<Layout
+  title={`Experience | ${config.site.title}`}
+  description="Research, work experience and tools: Cory Pleasance, Data Science & AI at the University of Stirling."
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <main id="main-content" class="app-layout pb-4">
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Experience</h1>
+
+    <section id="research" class="border-border mt-8 border-b pb-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Research</h2>
+      <div class="border-border mt-6 rounded-lg border p-4">
+        <p class="text-accent text-sm">University of Stirling · 2024–present</p>
+        <h3 class="mt-1 font-semibold">LLM security</h3>
+        <p class="mt-2 opacity-80">
+          I am currently building an automated system for testing the robustness
+          of LLMs through a collection of LLMs that can utilise multiple
+          different strategies.
+        </p>
+      </div>
+    </section>
+
+    <section id="experience" class="border-border border-b py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Experience</h2>
+      <ol class="mt-6 space-y-6">
+        {experience.map(e => (
+          <li class="grid gap-x-6 sm:grid-cols-[8rem_1fr]">
+            <p class="text-accent text-sm sm:pt-0.5">{e.when}</p>
+            <div>
+              <h3 class="font-semibold">{e.role}</h3>
+              <p class="text-sm opacity-75">
+                {e.org}
+                {e.tag && ` · ${e.tag}`}
+              </p>
+              {e.note && <p class="mt-1 text-sm opacity-80">{e.note}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="tools" class="py-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Tools I use</h2>
+      <dl class="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-[8rem_1fr]">
+        {tools.map(t => (
+          <>
+            <dt class="text-accent font-semibold">{t.group}</dt>
+            <dd class="mb-3 flex flex-wrap gap-2 sm:mb-0">
+              {t.items.map(i => (
+                <span class="border-border rounded-md border px-2 py-0.5 text-sm">
+                  {i}
+                </span>
+              ))}
+            </dd>
+          </>
+        ))}
+      </dl>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
