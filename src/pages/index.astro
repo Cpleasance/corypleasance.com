@@ -32,12 +32,13 @@ const work = [
       "Found a guardrail scope mismatch in a tool-using agent and exploited it at scale. Code, lab notebook and report on GitHub.",
     href: "https://github.com/Cpleasance/kaggle-ai-agent-security",
   },
-  {
-    label: "Kaggle · Gemma 4 Developer Agent Paper Track",
-    title: "It Shouldn't Matter What Task Is Given",
-    blurb: "A held-out task pool and a pre-flight suite.",
-    href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181",
-  },
+  // Gemma write-up hidden until it's ready to share:
+  // {
+  //   label: "Kaggle · Gemma 4 Developer Agent Paper Track",
+  //   title: "It Shouldn't Matter What Task Is Given",
+  //   blurb: "A held-out task pool and a pre-flight suite.",
+  //   href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181",
+  // },
 ];
 ---
 
@@ -168,7 +169,9 @@ const work = [
       ]}
     >
       <h2 class="text-2xl font-semibold tracking-wide">Selected work</h2>
-      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+      <ul
+        class:list={["mt-6 grid gap-4", { "sm:grid-cols-2": work.length > 1 }]}
+      >
         {
           work.map(item => (
             <li>
