@@ -13,10 +13,31 @@ if (!about) {
   );
 }
 
-// The intro paragraph lives in src/content/pages/about.md; everything else is below.
+// The intro paragraphs live in src/content/pages/about.md; everything else is below.
 const { Content } = await render(about);
 
 const link = "hover:text-accent underline decoration-dashed underline-offset-4";
+
+const now = [
+  {
+    title: "LLM red-teaming research",
+    body: "At Stirling, I'm building an automated system for red-teaming language models and measuring how well they hold up. A paper is in progress.",
+  },
+  {
+    title: "Competitions",
+    body: "A bronze medal in Kaggle's AI Agent Security competition (top 7% of 4,186 teams), a paper-track entry in Kaggle's Gemma 4 agent competition, and a live model in Numerai's tournament.",
+  },
+  {
+    title: "Barclays, summer 2027",
+    body: "I'm joining Barclays UK as a Technology Developer intern, after taking part in the Barclays Discovery Programme in April 2026.",
+  },
+];
+
+const uni = [
+  "On track for a First, with a Year 2 average of 82.2%.",
+  "Demonstrator for Data Structures and Algorithms, and IT assistant for the university.",
+  "Computer Science course representative in Year 2, speaking for 80+ students.",
+];
 ---
 
 <Layout
@@ -30,9 +51,28 @@ const link = "hover:text-accent underline decoration-dashed underline-offset-4";
   <main id="main-content" class="app-layout pb-12">
     <section class="pt-8">
       <h1 class="text-3xl font-bold sm:text-4xl">About</h1>
-      <div class="mt-6 leading-relaxed">
+      <div class="mt-6 space-y-4 leading-relaxed">
         <Content />
       </div>
+    </section>
+
+    <section id="now" class="border-border mt-12 border-t pt-10">
+      <h2 class="text-xl font-semibold tracking-wide">What I'm working on</h2>
+      <ul class="mt-6 space-y-6">
+        {now.map(n => (
+          <li>
+            <h3 class="font-semibold">{n.title}</h3>
+            <p class="mt-1 opacity-80">{n.body}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="university" class="border-border mt-12 border-t pt-10">
+      <h2 class="text-xl font-semibold tracking-wide">At university</h2>
+      <ul class="mt-6 list-disc space-y-2 ps-5 marker:text-accent">
+        {uni.map(u => <li>{u}</li>)}
+      </ul>
     </section>
 
     <section id="contact" class="border-border mt-12 border-t pt-10">

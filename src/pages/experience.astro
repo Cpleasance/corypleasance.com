@@ -18,17 +18,23 @@ const experience: Job[] = [
     org: "Barclays UK",
     when: "Summer 2027",
     tag: "Incoming",
+    note: "Offered after the Barclays Discovery Programme (April 2026).",
   },
   {
     role: "Demonstrator, Data Structures and Algorithms (CSCU9A3)",
     org: "University of Stirling",
-    when: "Now",
+    when: "Sep 2026–now",
+  },
+  {
+    role: "IT Assistant",
+    org: "University of Stirling",
+    when: "Sep 2026–now",
   },
   {
     role: "Research: LLM security",
     org: "University of Stirling",
     when: "2024–now",
-    note: "Building an automated system that tests how robust LLMs are, using a group of LLMs that attack with different strategies.",
+    note: "Building an automated system that tests how robust LLMs are. Paper in progress.",
   },
   {
     role: "Technology, Data & Innovation work experience",
@@ -36,6 +42,13 @@ const experience: Job[] = [
     when: "2025",
     note: "Time with the algorithmic trading team and with the GenAI and AI Architecture teams on LLM robustness in regulated environments.",
   },
+];
+
+const certifications = [
+  "Anthropic: Building with the Claude API · Model Context Protocol: Advanced Topics (2026)",
+  "Python Institute: PCPP, Programming with Python Professional (2025)",
+  "IBM: Advanced Deep Learning Specialist, plus three ML/DL certificates (2025)",
+  "Google: Foundations of Data Science (2025)",
 ];
 
 const tools = [
@@ -93,6 +106,13 @@ const tools = [
           </>
         ))}
       </dl>
+    </section>
+
+    <section id="certifications" class="border-border mt-12 border-t pt-10">
+      <h2 class="text-xl font-semibold tracking-wide">Certifications</h2>
+      <ul class="mt-6 list-disc space-y-2 ps-5 text-sm marker:text-accent">
+        {certifications.map(c => <li>{c}</li>)}
+      </ul>
     </section>
   </main>
 
