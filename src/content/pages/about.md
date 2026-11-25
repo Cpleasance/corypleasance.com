@@ -3,4 +3,4 @@ title: "About"
 description: "About Cory Pleasance — Data Science & AI student at the University of Stirling, researching LLM security."
 ---
 
-Hey there! I am Cory Pleasance, a Data Science & AI student at the University of Stirling (2024–2028). Predominantly focussing on LLM security research, machine-learning competitions and sometimes building things close to the metal. I write here about AI security, agent evaluation, and systems engineering.
+I'm Cory Pleasance, a Data Science & AI student at the University of Stirling (2024–2028). I mostly work on LLM security research and machine-learning competitions, and sometimes build things close to the metal.

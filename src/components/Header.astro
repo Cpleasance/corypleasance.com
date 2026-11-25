@@ -16,8 +16,11 @@ import config from "@/config";
 
 const { site, features } = config;
 
-// Hide Posts, Tags and Archives until at least one post is published.
-const hasPosts = (await getCollection("posts")).some(postFilter);
+// Hide Posts until a post is published, and Tags until there are enough
+// posts for tag browsing to be useful (tag pages stay reachable from posts).
+const publishedCount = (await getCollection("posts")).filter(postFilter).length;
+const hasPosts = publishedCount > 0;
+const showTags = publishedCount >= 5;
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
@@ -103,7 +106,7 @@ const isActive = (path: string) => {
             {t.nav.experience}
           </a>
         </li>
-        {hasPosts && (
+        {showTags && (
           <li class="col-span-2">
             <a
               href={getRelativeLocaleUrl(locale, "tags")}
