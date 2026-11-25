@@ -14,7 +14,7 @@ type Project = {
   links?: { text: string; href: string }[];
 };
 
-const projects: Project[] = [
+const competitions: Project[] = [
   {
     label: "Kaggle · Bronze medal, 290th of 4,186 (top 7%), solo",
     title: "AI Agent Security: Multi-Step Tool Attacks",
@@ -58,11 +58,62 @@ const projects: Project[] = [
     blurb:
       "Competing as CPLEASANCE with a LightGBM ensemble and era-aware cross-validation, trained on a dual-RTX 3060 workstation.",
   },
+];
+
+const built: Project[] = [
+  {
+    label: "Hackathon project · Windows app",
+    title: "Otherword: local privacy proxy for LLMs",
+    blurb:
+      "Swaps names, emails, API keys and other personal details in prompts for consistent stand-ins on your own machine, then restores them in the reply. Started at a hackathon; I'm now developing it further.",
+    links: [
+      {
+        text: "Download",
+        href: "https://github.com/Cpleasance/otherword-releases/releases/latest",
+      },
+    ],
+  },
+  {
+    label: "Python · MCP server · on PyPI",
+    title: "Token Runway",
+    blurb:
+      "Gives AI coding agents a live view of their token and rate-limit usage, so they can pick a cheaper approach before they hit a limit.",
+    links: [
+      { text: "Code", href: "https://github.com/Cpleasance/token-runway" },
+      { text: "PyPI", href: "https://pypi.org/project/token-runway/" },
+    ],
+  },
+  {
+    label: "Python · MCP bridge · on PyPI",
+    title: "Roblox Studio MCP Bridge",
+    blurb:
+      "Connects AI coding tools such as Claude Code and Cursor to Roblox Studio, fixing the connection and update bugs that make the stock setup unreliable.",
+    links: [
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/roblox-studio-mcp-bridge",
+      },
+      {
+        text: "PyPI",
+        href: "https://pypi.org/project/roblox-studio-mcp-bridge/",
+      },
+    ],
+  },
+  {
+    label: "Rust · desktop app and CLI",
+    title: "Wake Workstation",
+    blurb:
+      "Wakes a remote PC, checks it's ready and launches Moonlight game streaming in one click, including across networks through a Raspberry Pi relay.",
+    links: [
+      { text: "Code", href: "https://github.com/Cpleasance/wake-workstation" },
+    ],
+  },
   {
     label: "Systems",
     title: "Custom bootloader and minimal OS",
     blurb:
       "An x86 Assembly bootloader and bare-metal kernel, plus a FAT filesystem utility in C, debugged in Bochs.",
+    links: [{ text: "Code", href: "https://github.com/Cpleasance/OS-Build" }],
   },
 ];
 
@@ -81,9 +132,32 @@ const link = "hover:text-accent underline decoration-dashed underline-offset-4";
   <main id="main-content" class="app-layout pb-4">
     <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Projects</h1>
 
-    <section id="projects" class="border-border border-b pb-10">
+    <section id="competitions" class="border-border border-b pb-10 mt-8">
+      <h2 class="text-2xl font-semibold tracking-wide">Competitions</h2>
       <ul class="mt-6 grid gap-4 sm:grid-cols-2">
-        {projects.map(p => (
+        {competitions.map(p => (
+          <li class="border-border flex flex-col rounded-lg border p-4">
+            <p class="text-accent text-sm">{p.label}</p>
+            <h3 class="mt-1 font-semibold">{p.title}</h3>
+            {p.blurb && <p class="mt-2 text-sm opacity-80">{p.blurb}</p>}
+            {p.links && (
+              <p class="mt-auto flex flex-wrap gap-x-4 pt-3 text-sm">
+                {p.links.map(l => (
+                  <a class={link} href={l.href}>
+                    {l.text}
+                  </a>
+                ))}
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="built" class="border-border border-b pb-10 pt-10">
+      <h2 class="text-2xl font-semibold tracking-wide">Things I've built</h2>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+        {built.map(p => (
           <li class="border-border flex flex-col rounded-lg border p-4">
             <p class="text-accent text-sm">{p.label}</p>
             <h3 class="mt-1 font-semibold">{p.title}</h3>
