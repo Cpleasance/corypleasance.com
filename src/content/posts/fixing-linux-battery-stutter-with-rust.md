@@ -23,11 +23,13 @@ The full code and Makefile are [on GitHub](https://github.com/Cpleasance/laptop-
 
 The baseline machine is a ThinkPad X1 Carbon Gen 5 from 2017, but I've physically upgraded several of its core components:
 
-- **Display Panel:** Modded from stock 1080p FHD to a **1440p WQHD panel** (+78% pixels, heavy draw on integrated GPU RAM).
-- **Wireless Card:** Upgraded from stock Wireless-AC 8265 to an **Intel Wi-Fi 6 AX200** (faster throughput, but sensitive to sleep latency).
-- **Storage:** Swapped the stock OEM drive for a **Samsung 970 EVO NVMe SSD**.
-- **CPU & Graphics:** Dual-core Intel Core i7-7600U (2.8–3.9 GHz) with integrated Intel HD Graphics 620, sharing a 15W battery power envelope (`PL1`).
-- **Memory:** 16 GB LPDDR3-1866 dual-channel, shared between desktop apps and Wayland compositor buffers.
+| Component         | Factory Stock (2017)                     | Modded / Upgraded                                    | Real-World Impact                                                               |
+| :---------------- | :--------------------------------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------ |
+| **Display Panel** | 14.0" FHD (1920×1080, ~2.07M px)         | **14.0" WQHD (2560×1440, ~3.68M px)**                | **+78% pixel count**; sharply increases GPU redraw workload on integrated RAM   |
+| **Wireless**      | Intel Wireless-AC 8265 (Wi-Fi 5, BT 4.2) | **Intel Wi-Fi 6 AX200 (Wi-Fi 6 / 802.11ax, BT 5.2)** | 160 MHz channels & gigabit throughput; sensitive to aggressive power-save sleep |
+| **Storage**       | OEM 256GB / 512GB SATA/NVMe              | **Samsung 970 EVO NVMe SSD**                         | High-performance PCIe 3.0 x4 read/write speeds                                  |
+| **CPU / GPU**     | Intel Core i7-7600U · Intel HD 620       | Intel Core i7-7600U (2C/4T, 2.8–3.9 GHz)             | Dual-core Kaby Lake sharing a 15W sustained battery power envelope (`PL1`)      |
+| **Memory**        | 16 GB LPDDR3-1866 dual-channel           | 16 GB LPDDR3-1866 dual-channel                       | Unified memory shared between CPU execution and Wayland compositor buffers      |
 
 That screen mod turns a 2017 ThinkPad into a sharp, fantastic writing and coding machine, but it also increases the framebuffer pixel count by **78%**. On integrated graphics, the GPU shares LPDDR3 memory bandwidth and power budgets directly with the CPU cores. When driving 1440p on Wayland, the compositor (Mutter) has to render and blit almost 4 million pixels at 60 Hz without dedicated VRAM.
 
