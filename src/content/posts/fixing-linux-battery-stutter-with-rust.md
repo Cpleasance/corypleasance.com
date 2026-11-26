@@ -23,13 +23,11 @@ The full code and Makefile are [on GitHub](https://github.com/Cpleasance/laptop-
 
 The baseline machine is a ThinkPad X1 Carbon Gen 5 from 2017, but I've physically upgraded several of its core components:
 
-| Component         | Factory Stock (2017)         | Modded / Upgraded           | Real-World Impact                              |
-| ----------------- | ---------------------------- | --------------------------- | ---------------------------------------------- |
-| **Display Panel** | 14.0" FHD (1920×1080)        | **14.0" WQHD (2560×1440)**  | +78% pixels; heavy draw on integrated GPU RAM  |
-| **Wireless**      | Intel Wireless-AC 8265       | **Intel Wi-Fi 6 AX200**     | Faster throughput; sensitive to sleep latency  |
-| **Storage**       | OEM 256GB / 512GB SSD        | **Samsung 970 EVO NVMe**    | Fast PCIe 3.0 x4 storage                       |
-| **CPU / GPU**     | Intel Core i7-7600U · HD 620 | Intel Core i7-7600U (2C/4T) | 15W battery ceiling shared between cores & GPU |
-| **Memory**        | 16 GB LPDDR3-1866            | 16 GB LPDDR3-1866           | Shared RAM for apps and compositor buffers     |
+- **Display Panel:** Modded from stock 1080p FHD to a **1440p WQHD panel** (+78% pixels, heavy draw on integrated GPU RAM).
+- **Wireless Card:** Upgraded from stock Wireless-AC 8265 to an **Intel Wi-Fi 6 AX200** (faster throughput, but sensitive to sleep latency).
+- **Storage:** Swapped the stock OEM drive for a **Samsung 970 EVO NVMe SSD**.
+- **CPU & Graphics:** Dual-core Intel Core i7-7600U (2.8–3.9 GHz) with integrated Intel HD Graphics 620, sharing a 15W battery power envelope (`PL1`).
+- **Memory:** 16 GB LPDDR3-1866 dual-channel, shared between desktop apps and Wayland compositor buffers.
 
 That screen mod turns a 2017 ThinkPad into a sharp, fantastic writing and coding machine, but it also increases the framebuffer pixel count by **78%**. On integrated graphics, the GPU shares LPDDR3 memory bandwidth and power budgets directly with the CPU cores. When driving 1440p on Wayland, the compositor (Mutter) has to render and blit almost 4 million pixels at 60 Hz without dedicated VRAM.
 
