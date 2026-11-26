@@ -61,4 +61,5 @@ const headers = `/*
 `;
 
 writeFileSync(join(DIST, "_headers"), headers);
+// eslint-disable-next-line no-console
 console.log(`security-headers: wrote ${DIST}/_headers (${hashes.size} script hashes)`);

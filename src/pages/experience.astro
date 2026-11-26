@@ -111,7 +111,9 @@ const tools = [
     <section id="certifications" class="border-border mt-12 border-t pt-10">
       <h2 class="text-xl font-semibold tracking-wide">Certifications</h2>
       <ul class="mt-6 list-disc space-y-2 ps-5 text-sm marker:text-accent">
-        {certifications.map(c => <li>{c}</li>)}
+        {certifications.map(c => (
+          <li>{c}</li>
+        ))}
       </ul>
     </section>
   </main>

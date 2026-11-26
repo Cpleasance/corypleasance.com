@@ -71,7 +71,9 @@ const uni = [
     <section id="university" class="border-border mt-12 border-t pt-10">
       <h2 class="text-xl font-semibold tracking-wide">At university</h2>
       <ul class="mt-6 list-disc space-y-2 ps-5 marker:text-accent">
-        {uni.map(u => <li>{u}</li>)}
+        {uni.map(u => (
+          <li>{u}</li>
+        ))}
       </ul>
     </section>
 
