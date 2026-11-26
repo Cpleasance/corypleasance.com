@@ -51,12 +51,13 @@ const csp = [
 
 const headers = `/*
   Content-Security-Policy: ${csp}
-  Strict-Transport-Security: max-age=31536000
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
+  Cross-Origin-Embedder-Policy: credentialless
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
 `;
 
