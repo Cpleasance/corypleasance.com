@@ -8,6 +8,8 @@ tags:
   - ai-security
   - agents
   - kaggle
+repoUrl: "https://github.com/Cpleasance/kaggle-ai-agent-security"
+readingTime: "9 min read"
 ---
 
 Over the summer I entered Kaggle's [AI Agent Security: Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) competition, hosted by OpenAI, Google and IEEE. I went in solo and came out with a bronze medal: 290th of 4,186 teams, top 7%.

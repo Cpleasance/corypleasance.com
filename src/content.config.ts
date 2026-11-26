@@ -19,6 +19,8 @@ const posts = defineCollection({
       ogImage: image().or(z.string()).optional(),
       description: z.string(),
       canonicalURL: z.string().optional(),
+      repoUrl: z.string().optional(),
+      readingTime: z.string().optional(),
       hideEditPost: z.boolean().optional(),
       hideToc: z.boolean().optional(),
       // An empty value means "not set", so the site timezone applies.

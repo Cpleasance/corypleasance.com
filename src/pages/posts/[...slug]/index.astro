@@ -9,6 +9,7 @@ import { getPostSlug, getPostUrl } from "@/utils/getPostPaths";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { slugifyStr } from "@/utils/slugify";
 import { toTransitionName } from "@/utils/toTransitionName";
+import { getReadingTime } from "@/utils/getReadingTime";
 import EditPost from "./_components/EditPost.astro";
 import ShareLinks from "./_components/ShareLinks.astro";
 import BackButton from "./_components/BackButton.astro";
@@ -74,6 +75,8 @@ const {
   tags,
   hideEditPost,
   hideToc,
+  repoUrl,
+  readingTime,
 } = post.data;
 
 const { Content, headings } = await render(post);
@@ -124,8 +127,37 @@ const ogImage = ogImageUrl
       {title}
     </h1>
 
-    <div class="my-2 flex items-center gap-2">
+    <div class="my-2 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-muted-foreground sm:text-base">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+      <span aria-hidden="true">·</span>
+      <span>{getReadingTime(post.body, readingTime)}</span>
+      {repoUrl && (
+        <>
+          <span aria-hidden="true">·</span>
+          <a
+            href={repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-accent inline-flex items-center gap-1 font-medium underline decoration-dashed underline-offset-4 hover:opacity-80"
+          >
+            <span>View Code on GitHub</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        </>
+      )}
       <span
         aria-hidden="true"
         class:list={[

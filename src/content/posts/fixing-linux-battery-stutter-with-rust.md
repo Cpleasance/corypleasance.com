@@ -9,6 +9,8 @@ tags:
   - linux
   - systems
   - thinkpad
+repoUrl: "https://github.com/Cpleasance/laptop-tools"
+readingTime: "11 min read"
 ---
 
 When I unplugged my laptop—a 5th-generation ThinkPad X1 Carbon running Fedora and GNOME—the entire desktop immediately turned into a slideshow. Moving windows stuttered, typing lagged behind my keystrokes, and scrolling in the terminal felt like 10 FPS.
