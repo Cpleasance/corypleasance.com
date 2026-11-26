@@ -102,8 +102,12 @@ const built: Project[] = [
     label: "Rust · Linux daemon",
     title: "powerwatch",
     blurb:
-      "Switches my laptop to power-saving settings when I unplug, and puts everything back when I plug in.",
+      "Switches my laptop to responsive battery scaling when unplugged, monitors wattage budgets, and pauses heavy background tasks.",
     links: [
+      {
+        text: "Write-up",
+        href: "/posts/fixing-linux-battery-stutter-with-rust",
+      },
       {
         text: "Code",
         href: "https://github.com/Cpleasance/laptop-tools/tree/main/powerwatch",
@@ -114,8 +118,12 @@ const built: Project[] = [
     label: "Rust · Linux daemon",
     title: "resumecheck",
     blurb:
-      "Checks the network, fingerprint reader and drivers after my laptop wakes from sleep, and tells me how to fix anything broken.",
+      "Holds a systemd sleep delay inhibitor, auto-recovers failed hardware like the fingerprint reader, and verifies connectivity after waking.",
     links: [
+      {
+        text: "Write-up",
+        href: "/posts/fixing-linux-battery-stutter-with-rust",
+      },
       {
         text: "Code",
         href: "https://github.com/Cpleasance/laptop-tools/tree/main/resumecheck",
