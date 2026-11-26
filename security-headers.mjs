@@ -35,13 +35,17 @@ const scriptSrc = [
 ].join(" ");
 
 const csp = [
-  "default-src 'self'",
+  "default-src 'none'",
   `script-src ${scriptSrc}`,
   // Inline SVG charts and Astro components use style="" attributes.
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self' data:",
   "connect-src 'self'",
+  "media-src 'self'",
+  "manifest-src 'self'",
+  "worker-src 'self'",
+  "frame-src 'none'",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
