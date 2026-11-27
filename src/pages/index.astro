@@ -14,16 +14,13 @@ const locale = Astro.currentLocale ?? config.site.lang;
 
 const posts = await getCollection("posts");
 const sortedPosts = getSortedPosts(posts);
-// Featured posts first, then the rest, as one list.
-const homePosts = [
-  ...sortedPosts.filter(({ data }) => data.featured),
-  ...sortedPosts.filter(({ data }) => !data.featured),
-].slice(0, postsConfig.perIndex);
+// Newest first, same order as the Posts page.
+const homePosts = sortedPosts.slice(0, postsConfig.perIndex);
 const homePath = getRelativeLocaleUrl(locale, "");
 
 const link = "hover:text-accent underline decoration-dashed underline-offset-4";
 
-// The bronze-medal project is the featured post, so it isn't repeated here.
+// The bronze-medal project already has a post, so it isn't repeated here.
 const work = [
   {
     label: "Kaggle · Gemma 4 paper track",
