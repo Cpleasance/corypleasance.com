@@ -51,7 +51,18 @@ const competitions: Project[] = [
     result: "479th of 3,677 (top 13%)",
     title: "Hull Tactical Market Prediction",
     blurb:
-      "Forecasting the S&P 500 with LightGBM/CatBoost, using walk-forward and purged cross-validation to avoid lookahead bias.",
+      "Forecasting the S&P 500 with a small, heavily regularised XGBoost and a leveraged allocation rule, validated with purged walk-forward cross-validation.",
+    links: [
+      { text: "Write-up", href: "/posts/hull-tactical-market-prediction" },
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/hull-tactical-market-prediction",
+      },
+      {
+        text: "Competition",
+        href: "https://www.kaggle.com/competitions/hull-tactical-market-prediction",
+      },
+    ],
   },
   {
     label: "Numerai",
