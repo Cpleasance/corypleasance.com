@@ -9,7 +9,7 @@ tags:
   - finance
   - kaggle
 repoUrl: "https://github.com/Cpleasance/hull-tactical-market-prediction"
-readingTime: "8 min read"
+readingTime: "9 min read"
 ---
 
 Last winter I entered Kaggle's [Hull Tactical Market Prediction](https://www.kaggle.com/competitions/hull-tactical-market-prediction) competition. I went in solo and finished 479th of 3,677 teams, top 13%.
@@ -21,6 +21,8 @@ The full code, with both locked submissions, is [on GitHub](https://github.com/C
 ## The setup
 
 Each day you get a row of anonymised features (market, macro, sentiment, volatility and so on) and you output one number: how much of the S&P 500 to hold, from 0 to 2. Zero is all cash, 1 is fully invested, 2 is double leverage.
+
+There's no stock picking involved. Everything is about the S&P 500 index as a whole: one number a day for one asset.
 
 The score is a modified Sharpe ratio. Your strategy's daily return is
 
@@ -77,6 +79,29 @@ Then I waited. Here's how both did at each monthly rerun:
 
 January looked brilliant. March was underwater. By the end v32 finished at **1.588** on the private leaderboard and v38 at 1.065, so the version I trusted did come out ahead, though not every month.
 
+## What the market was doing
+
+The six months weren't calm. Going by the [S&P 500 data on FRED](https://fred.stlouisfed.org/series/SP500):
+
+- **January and February** were quiet. The index barely moved, and the VIX (the market's "fear gauge") sat around 16 to 19.
+- **March** was the shock. US and Israeli strikes on Iran, and Iran's retaliation, sent Brent crude from about \$71 to \$113 a barrel. The VIX closed above 30 and the S&P fell 5.1% for the month ([S&P Global](https://www.spglobal.com/market-intelligence/en/news-insights/articles/2026/4/major-us-stock-indexes-fall-over-5-in-march-100297973)). That's my negative rerun.
+- **April** was the opposite: up 10.4%, the index's best month since 2020, led by tech and strong earnings ([ThinkAdvisor](https://www.thinkadvisor.com/2026/04/30/sp-500-hits-record-set-for-best-month-since-2020/)).
+
+So was my score just the market? To check, I worked out what simply holding the index (an allocation of 1 every day) would have scored on the same metric at each rerun date:
+
+| Rerun | Hold the index | v32 |
+| :---- | -------------: | --: |
+| Jan   | 0.49 | 3.55 |
+| Feb   | 0.01 | 2.00 |
+| Mar   | −1.40 | −0.28 |
+| Apr   | 0.63 | 0.86 |
+| May   | 1.27 | 1.41 |
+| Final | 0.80 | **1.59** |
+
+The swings were mostly the market: when it fell, I fell. But v32 finished ahead of just holding at every rerun, and lost far less in March. That's the most encouraging number in this post, with the caveat that six months is a short sample.
+
+These are my own approximations from public data (the S&P 500 price index, with the fed funds rate as the risk-free rate), not Kaggle's exact numbers, and I don't know exactly which day each rerun's data stopped at.
+
 ## What I did well
 
 **I kept the model small.** With about 9,000 daily rows and a target that is mostly noise, a deep model would have fitted the past beautifully and the future badly. Three-level trees with heavy regularisation were the right call, and I'd do the same again.
@@ -99,7 +124,7 @@ January looked brilliant. March was underwater. By the end v32 finished at **1.5
 
 **My training and serving features didn't match.** The evaluation gateway hands `predict()` one day at a time. My lag and rolling-volatility features are computed with `shift()` and `rolling_std()` on whatever frame comes in, and on a single row those are all empty. The code quietly filled them with their training medians. So a good chunk of the features the model learned from were constants at inference. Keeping a rolling history of past rows inside the predict function would have fixed it, and a simple test of "do the features at inference match the features in training for the same date?" would have caught it.
 
-**I wrote a story instead of running a test.** After locking in, I wrote a long analysis arguing my high-leverage strategy was a bet on volatility returning, with probability tables for every possible market shock. It was fun to write, and none of it could change the outcome. If I'd spent that time on the CV noise or the feature mismatch before the deadline, I'd have learnt more.
+**I wrote a story instead of running a test.** After locking in, I wrote a long analysis arguing my high-leverage strategy was a bet on volatility returning, with probability tables for every possible market shock. It was fun to write, and none of it could change the outcome. The volatility I'd written pages about did turn up, but from a war rather than the AI earnings I'd focused on, and my score still went negative that month. What actually helped was losing less than the market, which the story never mentioned. If I'd spent that time on the CV noise or the feature mismatch before the deadline, I'd have learnt more.
 
 ## What I took away
 
