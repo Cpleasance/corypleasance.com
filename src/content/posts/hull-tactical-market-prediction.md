@@ -89,14 +89,14 @@ The six months weren't calm. Going by the [S&P 500 data on FRED](https://fred.st
 
 So was my score just the market? To check, I worked out what simply holding the index (an allocation of 1 every day) would have scored on the same metric at each rerun date:
 
-| Rerun | Hold the index | v32 |
-| :---- | -------------: | --: |
-| Jan   | 0.49 | 3.55 |
-| Feb   | 0.01 | 2.00 |
-| Mar   | −1.40 | −0.28 |
-| Apr   | 0.63 | 0.86 |
-| May   | 1.27 | 1.41 |
-| Final | 0.80 | **1.59** |
+| Rerun | Hold the index |      v32 |
+| :---- | -------------: | -------: |
+| Jan   |           0.49 |     3.55 |
+| Feb   |           0.01 |     2.00 |
+| Mar   |          −1.40 |    −0.28 |
+| Apr   |           0.63 |     0.86 |
+| May   |           1.27 |     1.41 |
+| Final |           0.80 | **1.59** |
 
 The swings were mostly the market: when it fell, I fell. But v32 finished ahead of just holding at every rerun, and lost far less in March. That's the most encouraging number in this post, with the caveat that six months is a short sample.
 
