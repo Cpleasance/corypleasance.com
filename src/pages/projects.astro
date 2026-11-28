@@ -5,7 +5,7 @@ import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
 type Project = {
-  category: "agents" | "systems" | "ml";
+  category: "ml" | "agents" | "systems";
   label: string;
   result?: string;
   title: string;
@@ -14,112 +14,11 @@ type Project = {
   links?: { text: string; href: string }[];
 };
 
-const aiProjects: Project[] = [
-  {
-    category: "agents",
-    label: "Python · MCP Server",
-    result: "PyPI Package",
-    title: "Token Runway",
-    blurb:
-      "Live token runway and rate-limit budget guard MCP server for Claude Code, Cursor, and AI agents. Gives LLMs quota awareness before they hit 429 limits.",
-    links: [
-      { text: "Code", href: "https://github.com/Cpleasance/token-runway" },
-      { text: "PyPI", href: "https://pypi.org/project/token-runway/" },
-    ],
-  },
-  {
-    category: "agents",
-    label: "Python · MCP Bridge",
-    result: "PyPI Package",
-    title: "BloxBridge MCP (Roblox Studio Bridge)",
-    blurb:
-      "Reliable Model Context Protocol bridge connecting Claude Code and Cursor to Roblox Studio with auto-reconnect, live sync, and connection fixups.",
-    links: [
-      {
-        text: "Code",
-        href: "https://github.com/Cpleasance/roblox-studio-mcp-bridge",
-      },
-      {
-        text: "PyPI",
-        href: "https://pypi.org/project/roblox-studio-mcp-bridge/",
-      },
-    ],
-  },
-];
-
-const systemsProjects: Project[] = [
-  {
-    category: "systems",
-    label: "Rust · Desktop & CLI",
-    title: "WakeWorkstation",
-    blurb:
-      "One-click remote PC Wake-on-LAN, health check & Moonlight game streaming launcher via Raspberry Pi SSH relay.",
-    links: [
-      { text: "Code", href: "https://github.com/Cpleasance/wake-workstation" },
-    ],
-  },
-  {
-    category: "systems",
-    label: "Rust · Linux CLI",
-    title: "thresholdctl",
-    blurb:
-      "CLI utility and udev rule generator for ThinkPad and Linux battery charge threshold management, featuring Desk and Travel profile switching to preserve battery health.",
-    links: [
-      {
-        text: "Code",
-        href: "https://github.com/Cpleasance/laptop-tools/tree/main/thresholdctl",
-      },
-    ],
-  },
-  {
-    category: "systems",
-    label: "Rust · Linux Daemon",
-    title: "powerwatch",
-    blurb:
-      "Switches laptop to responsive battery scaling when unplugged, monitors wattage budgets, and pauses heavy background tasks.",
-    links: [
-      {
-        text: "Write-up",
-        href: "/posts/fixing-linux-battery-stutter-with-rust",
-      },
-      {
-        text: "Code",
-        href: "https://github.com/Cpleasance/laptop-tools/tree/main/powerwatch",
-      },
-    ],
-  },
-  {
-    category: "systems",
-    label: "Rust · Linux Daemon",
-    title: "resumecheck",
-    blurb:
-      "Holds a systemd sleep delay inhibitor, auto-recovers failed hardware like the fingerprint reader, and verifies connectivity after waking.",
-    links: [
-      {
-        text: "Write-up",
-        href: "/posts/fixing-linux-battery-stutter-with-rust",
-      },
-      {
-        text: "Code",
-        href: "https://github.com/Cpleasance/laptop-tools/tree/main/resumecheck",
-      },
-    ],
-  },
-  {
-    category: "systems",
-    label: "x86 Assembly · C",
-    title: "Custom bootloader and minimal OS",
-    blurb:
-      "An x86 Assembly bootloader and bare-metal kernel, plus a FAT filesystem utility in C, debugged in Bochs.",
-    links: [{ text: "Code", href: "https://github.com/Cpleasance/OS-Build" }],
-  },
-];
-
 const mlProjects: Project[] = [
   {
     category: "ml",
-    label: "Kaggle · Solo",
-    result: "Bronze medal · 290th of 4,186 (top 7%)",
+    label: "Kaggle · AI Security",
+    result: "Bronze Medal · Top 7% (290/4,186)",
     title: "AI Agent Security: Multi-Step Tool Attacks",
     blurb:
       "The guardrail tracked whether untrusted input influenced a later privileged action; my attack made the privileged action first, so there was nothing to trace.",
@@ -140,24 +39,8 @@ const mlProjects: Project[] = [
   },
   {
     category: "ml",
-    label: "Kaggle · Gemma 4 Paper Track",
-    title: "It Shouldn't Matter What Task Is Given",
-    blurb: "A held-out task pool and a pre-flight suite for evaluating agents.",
-    links: [
-      {
-        text: "Write-up",
-        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181",
-      },
-      {
-        text: "Competition",
-        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper",
-      },
-    ],
-  },
-  {
-    category: "ml",
     label: "Kaggle · Quant Finance",
-    result: "479th of 3,677 (top 13%)",
+    result: "Top 13% (479/3,677)",
     title: "Hull Tactical Market Prediction",
     blurb:
       "Forecasting the S&P 500 with a small, heavily regularised XGBoost and a leveraged allocation rule, validated with purged walk-forward cross-validation.",
@@ -175,24 +58,150 @@ const mlProjects: Project[] = [
   },
   {
     category: "ml",
+    label: "Kaggle · Gemma 4 Paper Track",
+    title: "It Shouldn't Matter What Task Is Given",
+    blurb:
+      "A held-out task pool and a pre-flight evaluation suite for measuring whether agent benchmark results generalize across diverse prompt formulations.",
+    links: [
+      {
+        text: "Write-up",
+        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/writeups/new-writeup-1794239936181",
+      },
+      {
+        text: "Competition",
+        href: "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper",
+      },
+    ],
+  },
+  {
+    category: "ml",
     label: "Numerai · Quant Tournament",
-    result: "Live tournament",
+    result: "Live Tournament",
     title: "Numerai Classic",
     blurb:
-      "Competing as CPLEASANCE with a LightGBM ensemble and era-aware cross-validation, trained on a dual-RTX 3060 workstation.",
+      "Competing as CPLEASANCE with a regularized LightGBM ensemble and era-aware cross-validation, trained on a local dual-RTX 3060 workstation.",
+  },
+];
+
+const aiProjects: Project[] = [
+  {
+    category: "agents",
+    label: "Python · MCP Server",
+    result: "PyPI Package",
+    title: "Token Runway",
+    blurb:
+      "Live token runway and rate-limit budget guard MCP server for Claude Code, Cursor, and autonomous agents. Gives LLMs quota awareness before hitting 429 limits.",
+    links: [
+      { text: "Code", href: "https://github.com/Cpleasance/token-runway" },
+      { text: "PyPI", href: "https://pypi.org/project/token-runway/" },
+    ],
+  },
+  {
+    category: "agents",
+    label: "Python · MCP Bridge",
+    result: "PyPI Package",
+    title: "BloxBridge MCP (Roblox Studio Bridge)",
+    blurb:
+      "Reliable Model Context Protocol bridge connecting Claude Code and Cursor to Roblox Studio with auto-reconnect, live file synchronization, and session healing.",
+    links: [
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/roblox-studio-mcp-bridge",
+      },
+      {
+        text: "PyPI",
+        href: "https://pypi.org/project/roblox-studio-mcp-bridge/",
+      },
+    ],
+  },
+];
+
+const systemsProjects: Project[] = [
+  {
+    category: "systems",
+    label: "Rust · Desktop App & CLI",
+    title: "WakeWorkstation",
+    blurb:
+      "One-click remote PC Wake-on-LAN, ping health check & Moonlight game streaming launcher routed via a Raspberry Pi SSH relay.",
+    links: [
+      { text: "Code", href: "https://github.com/Cpleasance/wake-workstation" },
+    ],
+  },
+  {
+    category: "systems",
+    label: "Rust · Linux CLI",
+    title: "thresholdctl",
+    blurb:
+      "CLI utility and udev rule generator for ThinkPad and Linux battery charge threshold management, featuring Desk and Travel profile switching to preserve battery longevity.",
+    links: [
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/laptop-tools/tree/main/thresholdctl",
+      },
+    ],
+  },
+  {
+    category: "systems",
+    label: "Rust · Linux Daemon",
+    title: "powerwatch",
+    blurb:
+      "Switches laptop to responsive battery scaling when unplugged, monitors wattage budgets in real time, and pauses heavy background tasks.",
+    links: [
+      {
+        text: "Write-up",
+        href: "/posts/fixing-linux-battery-stutter-with-rust",
+      },
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/laptop-tools/tree/main/powerwatch",
+      },
+    ],
+  },
+  {
+    category: "systems",
+    label: "Rust · Linux Daemon",
+    title: "resumecheck",
+    blurb:
+      "Holds a systemd sleep delay inhibitor, auto-recovers failed hardware like the fingerprint reader, and verifies connectivity immediately after waking.",
+    links: [
+      {
+        text: "Write-up",
+        href: "/posts/fixing-linux-battery-stutter-with-rust",
+      },
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/laptop-tools/tree/main/resumecheck",
+      },
+    ],
+  },
+  {
+    category: "systems",
+    label: "x86 Assembly · C",
+    title: "Custom bootloader and minimal OS",
+    blurb:
+      "An x86 Assembly bootloader and bare-metal kernel, plus a custom FAT filesystem utility in C, developed and debugged in Bochs.",
+    links: [{ text: "Code", href: "https://github.com/Cpleasance/OS-Build" }],
   },
 ];
 
 const totalProjects =
-  aiProjects.length + systemsProjects.length + mlProjects.length;
+  mlProjects.length + aiProjects.length + systemsProjects.length;
 
 const groups = [
+  {
+    id: "ml",
+    heading: "Machine Learning & Competitions",
+    count: mlProjects.length,
+    description:
+      "Adversarial security benchmarks, quantitative finance forecasting, and competitive Kaggle rankings.",
+    items: mlProjects,
+  },
   {
     id: "agents",
     heading: "AI Agents & Developer Tools",
     count: aiProjects.length,
     description:
-      "Autonomous systems, Model Context Protocol servers, and agent tooling.",
+      "Published Model Context Protocol servers, rate-limit budget guards, and developer bridges.",
     items: aiProjects,
   },
   {
@@ -200,16 +209,8 @@ const groups = [
     heading: "Systems & Linux Engineering",
     count: systemsProjects.length,
     description:
-      "Daemons, low-level CLI utilities, power management, and OS kernels.",
+      "Daemons, low-level Rust CLI utilities, power management, and bare-metal OS experiments.",
     items: systemsProjects,
-  },
-  {
-    id: "ml",
-    heading: "Machine Learning & Competitions",
-    count: mlProjects.length,
-    description:
-      "Adversarial security benchmarks, quantitative finance models, and competitive Kaggle rankings.",
-    items: mlProjects,
   },
 ];
 ---
@@ -230,7 +231,7 @@ const groups = [
       </p>
     </div>
 
-    <!-- Filter Chips -->
+    <!-- Filter Chips with Pre-Filtering Support -->
     <div class="mt-8 flex flex-wrap items-center gap-2 border-b border-border/80 pb-6">
       <button
         class="chip rounded-lg border border-accent bg-accent px-3 py-1.5 font-mono text-xs font-semibold text-background transition-all hover:opacity-90"
@@ -238,6 +239,13 @@ const groups = [
         aria-pressed="true"
       >
         All ({totalProjects})
+      </button>
+      <button
+        class="chip rounded-lg border border-border bg-muted/30 px-3 py-1.5 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+        data-filter="ml"
+        aria-pressed="false"
+      >
+        ML & Competitions ({mlProjects.length})
       </button>
       <button
         class="chip rounded-lg border border-border bg-muted/30 px-3 py-1.5 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
@@ -252,13 +260,6 @@ const groups = [
         aria-pressed="false"
       >
         Systems & Linux ({systemsProjects.length})
-      </button>
-      <button
-        class="chip rounded-lg border border-border bg-muted/30 px-3 py-1.5 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
-        data-filter="ml"
-        aria-pressed="false"
-      >
-        ML & Competitions ({mlProjects.length})
       </button>
     </div>
 
@@ -332,53 +333,89 @@ const groups = [
 </Layout>
 
 <script>
-  function setupProjectFilters() {
+  function applyFilter(filter: string, updateUrl = false) {
     const chips =
       document.querySelectorAll<HTMLButtonElement>(".chip[data-filter]");
     const cards = document.querySelectorAll<HTMLElement>(".project-card");
     const sections = document.querySelectorAll<HTMLElement>(".project-section");
 
+    // Check if target chip exists
+    let targetChip = document.querySelector<HTMLButtonElement>(
+      `.chip[data-filter="${filter}"]`
+    );
+    if (!targetChip) {
+      filter = "all";
+      targetChip = document.querySelector<HTMLButtonElement>(
+        '.chip[data-filter="all"]'
+      );
+    }
+
+    chips.forEach(c => {
+      c.classList.remove("border-accent", "bg-accent", "text-background");
+      c.classList.add("border-border", "bg-muted/30", "text-foreground/85");
+      c.setAttribute("aria-pressed", "false");
+    });
+
+    if (targetChip) {
+      targetChip.classList.add("border-accent", "bg-accent", "text-background");
+      targetChip.classList.remove(
+        "border-border",
+        "bg-muted/30",
+        "text-foreground/85"
+      );
+      targetChip.setAttribute("aria-pressed", "true");
+    }
+
+    cards.forEach(card => {
+      const category = card.dataset.category;
+      if (filter === "all" || category === filter) {
+        card.classList.remove("hidden");
+      } else {
+        card.classList.add("hidden");
+      }
+    });
+
+    sections.forEach(section => {
+      const visible = section.querySelectorAll(".project-card:not(.hidden)");
+      if (visible.length === 0) {
+        section.classList.add("hidden");
+      } else {
+        section.classList.remove("hidden");
+      }
+    });
+
+    if (updateUrl) {
+      const pathname = window.location.pathname;
+      const newUrl =
+        filter === "all" ? pathname : `${pathname}?filter=${filter}`;
+      window.history.replaceState({ filter }, "", newUrl);
+    }
+  }
+
+  function initProjectFilters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterFromParam = urlParams.get("filter");
+    const filterFromHash = window.location.hash.replace("#", "");
+    const initialFilter = filterFromParam || filterFromHash || "all";
+
+    applyFilter(initialFilter, false);
+
+    const chips =
+      document.querySelectorAll<HTMLButtonElement>(".chip[data-filter]");
     chips.forEach(chip => {
       chip.addEventListener("click", () => {
-        const filter = chip.dataset.filter;
-
-        chips.forEach(c => {
-          c.classList.remove("border-accent", "bg-accent", "text-background");
-          c.classList.add("border-border", "bg-muted/30", "text-foreground/85");
-          c.setAttribute("aria-pressed", "false");
-        });
-
-        chip.classList.add("border-accent", "bg-accent", "text-background");
-        chip.classList.remove(
-          "border-border",
-          "bg-muted/30",
-          "text-foreground/85"
-        );
-        chip.setAttribute("aria-pressed", "true");
-
-        cards.forEach(card => {
-          const category = card.dataset.category;
-          if (filter === "all" || category === filter) {
-            card.classList.remove("hidden");
-          } else {
-            card.classList.add("hidden");
-          }
-        });
-
-        sections.forEach(section => {
-          const visible = section.querySelectorAll(
-            ".project-card:not(.hidden)"
-          );
-          if (visible.length === 0) {
-            section.classList.add("hidden");
-          } else {
-            section.classList.remove("hidden");
-          }
-        });
+        const filter = chip.dataset.filter || "all";
+        applyFilter(filter, true);
       });
+    });
+
+    window.addEventListener("popstate", () => {
+      const currentParam =
+        new URLSearchParams(window.location.search).get("filter") || "all";
+      applyFilter(currentParam, false);
     });
   }
 
-  setupProjectFilters();
-  document.addEventListener("astro:after-swap", setupProjectFilters);
+  initProjectFilters();
+  document.addEventListener("astro:after-swap", initProjectFilters);
 </script>

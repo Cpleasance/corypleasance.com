@@ -15,6 +15,7 @@ type Job = {
 };
 
 type Certification = {
+  category: "ai" | "ml" | "data" | "swe";
   issuer: string;
   name: string;
   date: string;
@@ -94,82 +95,96 @@ const volunteering: VolunteerRole[] = [
 
 const certifications: Certification[] = [
   {
+    category: "ai",
     issuer: "Anthropic",
     name: "Model Context Protocol: Advanced Topics",
     date: "Jul 2026",
     credentialId: "z5yvrzigc6fz",
   },
   {
+    category: "ai",
     issuer: "Anthropic",
     name: "Building with the Claude API",
     date: "Jan 2026",
     credentialId: "ybhb3qhijdem",
   },
   {
+    category: "swe",
     issuer: "OpenEDG Python Institute",
     name: "Programming with Python Professional Certificate",
     date: "Nov 2025",
     skills: ["OOP"],
   },
   {
+    category: "data",
     issuer: "Google",
     name: "Foundations of Data Science",
     date: "Jul 2025",
     credentialId: "PHWCK9ZC50KZ",
   },
   {
+    category: "ml",
     issuer: "IBM",
     name: "Advanced Deep Learning Specialist",
     date: "Jul 2025",
   },
   {
+    category: "ml",
     issuer: "IBM",
     name: "Deep Learning with Keras and Tensorflow",
     date: "Jul 2025",
     credentialId: "7BHSH0NE1HBW",
   },
   {
+    category: "ai",
     issuer: "IBM",
     name: "Introduction to Deep Learning & Neural Networks with Keras",
     date: "Jun 2025",
     credentialId: "CW0FNKE9DQRX",
   },
   {
+    category: "ml",
     issuer: "IBM",
     name: "Machine Learning with Python",
     date: "Jun 2025",
     credentialId: "ZI3V561WS8Y2",
   },
   {
+    category: "ml",
     issuer: "Anaconda",
     name: "Anaconda Python for Data Science Professional Certificate",
     date: "Apr 2025",
     skills: ["Data Analysis"],
   },
   {
+    category: "data",
     issuer: "Wolfram",
     name: "Statistics Foundations Professional Certificate",
     date: "Jan 2025",
     skills: ["Wolfram Language"],
   },
   {
+    category: "ai",
     issuer: "Microsoft & LinkedIn",
     name: "Build Your Generative AI Productivity Skills",
     date: "Dec 2024",
   },
   {
+    category: "swe",
     issuer: "LinkedIn",
     name: "Practical GitHub Actions",
     date: "Dec 2024",
     skills: ["GitHub Actions"],
   },
   {
+    category: "swe",
     issuer: "LinkedIn",
     name: "Learning Docker",
     date: "Dec 2024",
     skills: ["Docker"],
   },
   {
+    category: "swe",
     issuer: "OpenEDG Python Institute",
     name: "PCEP – Certified Entry-Level Python Programmer",
     date: "Jan 2024",
@@ -178,14 +193,59 @@ const certifications: Certification[] = [
 ];
 
 const tools = [
-  { group: "Languages", items: ["Python", "Java", "Rust", "SQL"] },
   {
-    group: "ML",
-    items: ["PyTorch", "Hugging Face", "scikit-learn", "LightGBM", "CatBoost"],
+    group: "Languages",
+    items: [
+      "Python",
+      "Rust",
+      "Java",
+      "SQL",
+      "C",
+      "x86 Assembly",
+      "Bash",
+      "TypeScript",
+    ],
   },
   {
-    group: "Infrastructure",
-    items: ["Linux", "Docker", "CUDA", "SLURM", "vLLM", "Ollama"],
+    group: "Machine Learning & AI",
+    items: [
+      "PyTorch",
+      "Hugging Face",
+      "scikit-learn",
+      "LightGBM",
+      "XGBoost",
+      "CatBoost",
+      "Keras",
+      "TensorFlow",
+      "vLLM",
+      "Ollama",
+    ],
+  },
+  {
+    group: "Infrastructure & Systems",
+    items: [
+      "Linux",
+      "Docker",
+      "CUDA",
+      "SLURM",
+      "systemd",
+      "udev",
+      "Git",
+      "GitHub Actions",
+      "Raspberry Pi",
+      "Moonlight",
+    ],
+  },
+  {
+    group: "Protocols & Tools",
+    items: [
+      "Model Context Protocol (MCP)",
+      "Claude API",
+      "Bloomberg Terminals",
+      "Astro",
+      "Tailwind CSS",
+      "Pagefind",
+    ],
   },
 ];
 ---
@@ -320,13 +380,58 @@ const tools = [
         </h2>
         <p class="text-sm opacity-75">
           Verified professional certifications across artificial intelligence,
-          systems, and data science.
+          machine learning, and software systems.
         </p>
+      </div>
+
+      <!-- Filter Chips with Pre-Filtering Support -->
+      <div class="mt-6 flex flex-wrap items-center gap-2 border-b border-border/80 pb-4">
+        <button
+          class="cert-chip rounded-lg border border-accent bg-accent px-3 py-1 font-mono text-xs font-semibold text-background transition-all hover:opacity-90"
+          data-cert-filter="all"
+          aria-pressed="true"
+        >
+          All ({certifications.length})
+        </button>
+        <button
+          class="cert-chip rounded-lg border border-border bg-muted/30 px-3 py-1 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+          data-cert-filter="ai"
+          aria-pressed="false"
+        >
+          AI & LLMs ({certifications.filter(c => c.category === "ai").length})
+        </button>
+        <button
+          class="cert-chip rounded-lg border border-border bg-muted/30 px-3 py-1 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+          data-cert-filter="ml"
+          aria-pressed="false"
+        >
+          Deep Learning & ML (
+          {certifications.filter(c => c.category === "ml").length})
+        </button>
+        <button
+          class="cert-chip rounded-lg border border-border bg-muted/30 px-3 py-1 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+          data-cert-filter="data"
+          aria-pressed="false"
+        >
+          Data Science (
+          {certifications.filter(c => c.category === "data").length})
+        </button>
+        <button
+          class="cert-chip rounded-lg border border-border bg-muted/30 px-3 py-1 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+          data-cert-filter="swe"
+          aria-pressed="false"
+        >
+          Systems & Python (
+          {certifications.filter(c => c.category === "swe").length})
+        </button>
       </div>
 
       <div class="mt-6 grid gap-3 sm:grid-cols-2">
         {certifications.map(c => (
-          <div class="border-border/80 bg-muted/20 hover:border-accent/60 rounded-xl border p-4 flex flex-col justify-between transition-colors">
+          <div
+            class="cert-card border-border/80 bg-muted/20 hover:border-accent hover:bg-muted/30 hover:-translate-y-0.5 rounded-xl border p-4 flex flex-col justify-between transition-all duration-200 shadow-xs hover:shadow-md"
+            data-category={c.category}
+          >
             <div>
               <div class="flex items-center justify-between gap-2">
                 <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">
@@ -361,3 +466,80 @@ const tools = [
 
   <Footer />
 </Layout>
+
+<script>
+  function applyCertFilter(filter: string, updateUrl = false) {
+    const chips = document.querySelectorAll<HTMLButtonElement>(
+      ".cert-chip[data-cert-filter]"
+    );
+    const cards = document.querySelectorAll<HTMLElement>(".cert-card");
+
+    let targetChip = document.querySelector<HTMLButtonElement>(
+      `.cert-chip[data-cert-filter="${filter}"]`
+    );
+    if (!targetChip) {
+      filter = "all";
+      targetChip = document.querySelector<HTMLButtonElement>(
+        '.cert-chip[data-cert-filter="all"]'
+      );
+    }
+
+    chips.forEach(c => {
+      c.classList.remove("border-accent", "bg-accent", "text-background");
+      c.classList.add("border-border", "bg-muted/30", "text-foreground/85");
+      c.setAttribute("aria-pressed", "false");
+    });
+
+    if (targetChip) {
+      targetChip.classList.add("border-accent", "bg-accent", "text-background");
+      targetChip.classList.remove(
+        "border-border",
+        "bg-muted/30",
+        "text-foreground/85"
+      );
+      targetChip.setAttribute("aria-pressed", "true");
+    }
+
+    cards.forEach(card => {
+      const category = card.dataset.category;
+      if (filter === "all" || category === filter) {
+        card.classList.remove("hidden");
+      } else {
+        card.classList.add("hidden");
+      }
+    });
+
+    if (updateUrl) {
+      const pathname = window.location.pathname;
+      const newUrl = filter === "all" ? pathname : `${pathname}?cert=${filter}`;
+      window.history.replaceState({ cert: filter }, "", newUrl);
+    }
+  }
+
+  function initCertFilters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterFromParam = urlParams.get("cert");
+    const initialFilter = filterFromParam || "all";
+
+    applyCertFilter(initialFilter, false);
+
+    const chips = document.querySelectorAll<HTMLButtonElement>(
+      ".cert-chip[data-cert-filter]"
+    );
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const filter = chip.dataset.certFilter || "all";
+        applyCertFilter(filter, true);
+      });
+    });
+
+    window.addEventListener("popstate", () => {
+      const currentParam =
+        new URLSearchParams(window.location.search).get("cert") || "all";
+      applyCertFilter(currentParam, false);
+    });
+  }
+
+  initCertFilters();
+  document.addEventListener("astro:after-swap", initCertFilters);
+</script>
