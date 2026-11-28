@@ -31,6 +31,8 @@ const scriptSrc = [
   "'self'",
   // Pagefind search compiles WebAssembly.
   "'wasm-unsafe-eval'",
+  // Astro ClientRouter tests dynamic import support using a data: module URI
+  "data:",
   ...[...hashes].sort().map(h => `'sha256-${h}'`),
 ].join(" ");
 
@@ -42,6 +44,7 @@ const csp = [
   "img-src 'self' data:",
   "font-src 'self' data:",
   "connect-src 'self'",
+  "prefetch-src 'self'",
   "media-src 'self'",
   "manifest-src 'self'",
   "worker-src 'self'",

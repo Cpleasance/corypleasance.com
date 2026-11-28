@@ -54,7 +54,8 @@ const linkRegex = /<(?:a|link)\b[^>]*\bhref=["']([^"']+)["']/gi;
 const imgRegex = /<img\b[^>]*\bsrc=["']([^"']+)["']/gi;
 
 function resolveLocalTarget(sourceFile, href) {
-  const [pathPart, anchor] = href.split("#");
+  const [withoutAnchor, anchor] = href.split("#");
+  const [pathPart] = withoutAnchor.split("?");
   let targetPath = null;
 
   if (pathPart === "" && anchor !== undefined) {

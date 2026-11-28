@@ -9,15 +9,42 @@ import Card from "@/components/Card.astro";
 import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getUniqueTags } from "@/utils/getUniqueTags";
+import { slugifyStr } from "@/utils/slugify";
+import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconX from "@/assets/icons/IconX.svg";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
-  return paginate(getSortedPosts(posts), { pageSize: config.posts.perPage });
+  // Ensure all posts are loaded on the interactive searchable & filterable posts page
+  return paginate(getSortedPosts(posts), { pageSize: 100 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+
+const allPublishedPosts = await getCollection(
+  "posts",
+  ({ data }) => !data.draft
+);
+const sortedPosts = getSortedPosts(allPublishedPosts);
+
+// Compute tag counts across all published posts
+const tagCounts = new Map<string, number>();
+sortedPosts.forEach(post => {
+  post.data.tags?.forEach(t => {
+    const slug = slugifyStr(t);
+    tagCounts.set(slug, (tagCounts.get(slug) ?? 0) + 1);
+  });
+});
+
+const uniqueTags = getUniqueTags(sortedPosts)
+  .map(t => ({
+    ...t,
+    count: tagCounts.get(t.tag) ?? 1,
+  }))
+  .sort((a, b) => b.count - a.count || a.tagName.localeCompare(b.tagName));
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
@@ -29,10 +56,79 @@ const t = useTranslations(locale);
   <Breadcrumb />
 
   <Main pageTitle={t.pages.postsTitle} pageDesc={t.pages.postsDesc}>
-    <ul>
-      {page.data.map(data => (
-        <Card {...data} />
-      ))}
+    <!-- Search Bar -->
+    <div class="relative mt-6 max-w-lg">
+      <div
+        class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-foreground/50"
+      >
+        <IconSearch class="size-4" />
+      </div>
+      <input
+        type="search"
+        id="post-search"
+        class="w-full rounded-lg border border-border bg-muted/20 py-2.5 pr-9 pl-10 text-sm placeholder:text-muted-foreground/60 transition-colors focus:border-accent focus:bg-background focus:outline-hidden"
+        placeholder="Search posts by title, tag, or topic... (/ or Ctrl+K)"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button
+        id="search-clear"
+        type="button"
+        class="hidden absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-muted-foreground hover:text-foreground"
+        aria-label="Clear search"
+      >
+        <IconX class="size-4" />
+      </button>
+    </div>
+
+    <!-- Tag Sorting Pills -->
+    <div
+      class="mt-4 flex flex-wrap items-center gap-2 border-b border-border/80 pb-6"
+    >
+      <button
+        class="post-chip rounded-lg border border-accent bg-accent px-3 py-1.5 font-mono text-xs font-semibold text-background transition-all hover:opacity-90"
+        data-filter="all"
+        aria-pressed="true"
+      >
+        All ({allPublishedPosts.length})
+      </button>
+      {
+        uniqueTags.map(tag => (
+          <button
+            class="post-chip rounded-lg border border-border bg-muted/30 px-3 py-1.5 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+            data-filter={tag.tag}
+            aria-pressed="false"
+          >
+            #{tag.tagName} ({tag.count})
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Active Filter Status -->
+    <div id="filter-status" class="hidden mt-4 text-xs font-mono opacity-70">
+    </div>
+
+    <!-- No Results Empty State -->
+    <div
+      id="no-results"
+      class="hidden my-12 rounded-xl border border-dashed border-border/80 p-8 text-center"
+    >
+      <p class="text-base font-semibold">No posts found</p>
+      <p class="mt-1 text-sm opacity-75">
+        No posts matched your current search or filter criteria.
+      </p>
+      <button
+        id="reset-filters"
+        class="mt-4 inline-flex cursor-pointer items-center rounded-lg border border-accent bg-accent/10 px-3.5 py-1.5 font-mono text-xs font-semibold text-accent transition-colors hover:bg-accent hover:text-background"
+      >
+        Reset filters
+      </button>
+    </div>
+
+    <!-- Post Cards -->
+    <ul id="posts-list" class="space-y-4">
+      {page.data.map(data => <Card {...data} />)}
     </ul>
   </Main>
 
@@ -40,3 +136,201 @@ const t = useTranslations(locale);
 
   <Footer noMarginTop={page.lastPage > 1} />
 </Layout>
+
+<script>
+  function initPostFilters() {
+    const searchInput =
+      document.querySelector<HTMLInputElement>("#post-search");
+    const clearBtn = document.querySelector<HTMLButtonElement>("#search-clear");
+    const chips = document.querySelectorAll<HTMLButtonElement>(".post-chip");
+    const cards = document.querySelectorAll<HTMLElement>(".post-card");
+    const emptyState = document.querySelector<HTMLElement>("#no-results");
+    const statusMsg = document.querySelector<HTMLElement>("#filter-status");
+    const resetBtn =
+      document.querySelector<HTMLButtonElement>("#reset-filters");
+
+    if (!cards.length) return;
+
+    let currentTag = "all";
+    let currentQuery = "";
+
+    function update(updateUrl = true) {
+      let matchCount = 0;
+      const q = currentQuery.trim().toLowerCase();
+
+      cards.forEach(card => {
+        let tags: string[] = [];
+        try {
+          tags = JSON.parse(card.dataset.tags || "[]");
+        } catch {
+          tags = [];
+        }
+        const title = card.dataset.title || "";
+        const desc = card.dataset.desc || "";
+
+        const matchesTag = currentTag === "all" || tags.includes(currentTag);
+        const matchesQuery =
+          !q ||
+          title.includes(q) ||
+          desc.includes(q) ||
+          tags.some(t => t.includes(q));
+
+        if (matchesTag && matchesQuery) {
+          card.classList.remove("hidden");
+          matchCount++;
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+
+      // Update chips style
+      chips.forEach(chip => {
+        const isSelected = chip.dataset.filter === currentTag;
+        chip.setAttribute("aria-pressed", isSelected ? "true" : "false");
+        if (isSelected) {
+          chip.classList.add("border-accent", "bg-accent", "text-background");
+          chip.classList.remove(
+            "border-border",
+            "bg-muted/30",
+            "text-foreground/85"
+          );
+        } else {
+          chip.classList.remove(
+            "border-accent",
+            "bg-accent",
+            "text-background"
+          );
+          chip.classList.add(
+            "border-border",
+            "bg-muted/30",
+            "text-foreground/85"
+          );
+        }
+      });
+
+      // Update clear button visibility
+      if (clearBtn) {
+        if (currentQuery) {
+          clearBtn.classList.remove("hidden");
+        } else {
+          clearBtn.classList.add("hidden");
+        }
+      }
+
+      // Update status or empty state
+      if (matchCount === 0) {
+        emptyState?.classList.remove("hidden");
+        statusMsg?.classList.add("hidden");
+      } else {
+        emptyState?.classList.add("hidden");
+        if (currentTag !== "all" || q) {
+          if (statusMsg) {
+            statusMsg.textContent = `Showing ${matchCount} of ${cards.length} posts`;
+            statusMsg.classList.remove("hidden");
+          }
+        } else {
+          statusMsg?.classList.add("hidden");
+        }
+      }
+
+      // Update URL params
+      if (updateUrl) {
+        const params = new URLSearchParams();
+        if (currentTag !== "all") params.set("filter", currentTag);
+        if (currentQuery) params.set("q", currentQuery);
+        const queryString = params.toString();
+        const newUrl = queryString
+          ? `${window.location.pathname}?${queryString}`
+          : window.location.pathname;
+        window.history.replaceState(
+          { filter: currentTag, q: currentQuery },
+          "",
+          newUrl
+        );
+      }
+    }
+
+    // Handle chip click
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const filter = chip.dataset.filter || "all";
+        currentTag = currentTag === filter && filter !== "all" ? "all" : filter;
+        update();
+      });
+    });
+
+    // Handle in-page card tag clicks
+    document.querySelectorAll<HTMLAnchorElement>(".tag-link").forEach(link => {
+      link.addEventListener("click", e => {
+        const tagSlug = link.dataset.tagSlug;
+        if (tagSlug) {
+          e.preventDefault();
+          currentTag = tagSlug;
+          update();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+    });
+
+    // Handle search input
+    searchInput?.addEventListener("input", e => {
+      currentQuery = (e.target as HTMLInputElement).value;
+      update();
+    });
+
+    // Handle clear button
+    clearBtn?.addEventListener("click", () => {
+      if (searchInput) {
+        searchInput.value = "";
+        currentQuery = "";
+        searchInput.focus();
+        update();
+      }
+    });
+
+    // Handle reset button in empty state
+    resetBtn?.addEventListener("click", () => {
+      currentTag = "all";
+      currentQuery = "";
+      if (searchInput) searchInput.value = "";
+      update();
+    });
+
+    // Read initial URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterFromParam = urlParams.get("filter") || urlParams.get("tag");
+    const queryFromParam = urlParams.get("q");
+
+    if (filterFromParam) {
+      currentTag = filterFromParam;
+    }
+    if (queryFromParam) {
+      currentQuery = queryFromParam;
+      if (searchInput) searchInput.value = queryFromParam;
+    }
+
+    if (urlParams.has("focus") && searchInput) {
+      searchInput.focus();
+      searchInput.select();
+    }
+
+    update(false);
+
+    window.addEventListener("popstate", () => {
+      const params = new URLSearchParams(window.location.search);
+      currentTag = params.get("filter") || params.get("tag") || "all";
+      currentQuery = params.get("q") || "";
+      if (searchInput) searchInput.value = currentQuery;
+      update(false);
+    });
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    if (
+      document.querySelector("#post-search") ||
+      document.querySelector(".post-chip")
+    ) {
+      initPostFilters();
+    }
+  });
+</script>

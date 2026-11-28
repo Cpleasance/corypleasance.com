@@ -41,22 +41,21 @@ const uni = [
 
 const interests = [
   {
-    title: "Trail & Ultramarathons",
+    title: "Running",
     tag: "Outdoors",
     description:
-      "Living right beneath the Ochil Hills above Stirling makes it easy to head up the ridge. I'm currently training to step up from trail runs into ultramarathon distances — let's see how that goes.",
+      "Trying to get into ultramarathon running (let's see how that goes), mostly up in the Ochils.",
   },
   {
-    title: "3D Printing & Hardware",
+    title: "3D Printing",
     tag: "Maker",
     description:
-      "I love designing and 3D printing practical everyday objects. My daily carry is a custom slim wallet I designed and printed with an embedded NFC chip inside for gym turnstile access.",
+      "Printing practical things, like a custom wallet with an embedded NFC chip for the gym.",
   },
   {
     title: "Italian Cooking",
-    tag: "Kitchen",
-    description:
-      "Passionate home cook with a particular obsession with regional Italian food — making fresh pasta from scratch, dialling in high-hydration focaccia, and slow-simmering authentic ragù.",
+    tag: "Food",
+    description: "Cooking at home, especially Italian food.",
   },
 ];
 
@@ -102,54 +101,6 @@ const visitedCountries = [
       <div class="mt-8 grid gap-8 md:grid-cols-[1fr_260px] lg:grid-cols-[1fr_300px] items-start">
         <div class="space-y-4 leading-relaxed text-base sm:text-lg opacity-90">
           <Content />
-
-          <!-- Interactive Countries Visited Drawer -->
-          <details class="group mt-4 rounded-xl border border-border/80 bg-muted/20 p-4 transition-all hover:border-accent/60">
-            <summary class="flex cursor-pointer items-center justify-between text-sm font-medium select-none list-none gap-2">
-              <span class="flex items-center gap-2">
-                <span class="size-2 rounded-full bg-accent shrink-0"></span>
-                <span class="font-semibold text-foreground">
-                  23 countries visited
-                </span>
-                <span class="hidden sm:inline text-xs font-mono opacity-60">
-                  Europe · Asia · Africa · Oceania
-                </span>
-              </span>
-              <span class="flex items-center gap-1 text-xs font-mono text-accent">
-                <span class="group-open:hidden">Show</span>
-                <span class="hidden group-open:inline">Hide</span>
-                <span class="transition-transform duration-200 group-open:rotate-180">
-                  ▾
-                </span>
-              </span>
-            </summary>
-
-            <div class="mt-4 pt-3 border-t border-border/50 text-sm">
-              <p class="text-xs opacity-75 mb-3 leading-relaxed">
-                Places I've lived in or explored across Europe, Asia, Africa,
-                and Oceania:
-              </p>
-              <div class="flex flex-wrap gap-1.5">
-                {visitedCountries.map(c => (
-                  <span class="rounded-md border border-border/70 bg-background/80 hover:border-accent/60 px-2 py-0.5 text-xs font-mono transition-colors">
-                    {c.name}{" "}
-                    <span class="opacity-50 text-[10px]">{c.code}</span>
-                  </span>
-                ))}
-              </div>
-              <div class="mt-4 pt-2 border-t border-border/30 flex justify-end">
-                <a
-                  href="https://countries-visited.com/?visited=AUS,BEL,CHE,EGY,ESP,FIN,FRA,GBR,GRC,IND,ITA,LTU,MDV,MLT,MYS,NLD,OMN,QAT,SAU,SGP,THA,TZA,VAT"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover:text-accent font-mono text-xs underline decoration-dashed underline-offset-4 inline-flex items-center gap-1 opacity-80"
-                >
-                  <span>Interactive world map</span>
-                  <span aria-hidden="true">→</span>
-                </a>
-              </div>
-            </div>
-          </details>
         </div>
         <div class="order-first md:order-last">
           <figure class="overflow-hidden rounded-xl border border-border/80 bg-muted/20 shadow-xs">
@@ -175,14 +126,9 @@ const visitedCountries = [
       </div>
     </section>
 
-    <!-- Personal Interests / Outside the Terminal -->
+    <!-- Personal Interests / Beyond the screen -->
     <section id="interests" class="border-border mt-12 border-t pt-10">
-      <div class="space-y-1">
-        <h2 class="text-xl font-semibold tracking-wide">Beyond the screen</h2>
-        <p class="text-sm opacity-75">
-          Things that keep me grounded away from the keyboard.
-        </p>
-      </div>
+      <h2 class="text-xl font-semibold tracking-wide">Beyond the screen</h2>
 
       <div class="mt-6 grid gap-4 sm:grid-cols-3">
         {interests.map(item => (
@@ -194,12 +140,48 @@ const visitedCountries = [
               <h3 class="mt-2.5 font-semibold text-foreground text-base leading-snug">
                 {item.title}
               </h3>
-              <p class="mt-2 text-xs sm:text-sm leading-relaxed opacity-80">
+              <p class="mt-1.5 text-xs sm:text-sm leading-relaxed opacity-80">
                 {item.description}
               </p>
             </div>
           </div>
         ))}
+      </div>
+
+      <!-- Countries Visited -->
+      <div class="mt-8 pt-6 border-t border-border/50">
+        <p class="text-xs sm:text-sm opacity-75 mb-3">
+          I love travelling, see where I have been so far:
+        </p>
+
+        <details class="group rounded-xl border border-border/80 bg-muted/20 p-4 transition-all hover:border-accent/60">
+          <summary class="flex cursor-pointer items-center justify-between text-sm font-medium select-none list-none gap-2">
+            <span class="flex items-center gap-2">
+              <span class="size-2 rounded-full bg-accent shrink-0"></span>
+              <span class="font-semibold text-foreground">
+                23 countries visited
+              </span>
+            </span>
+            <span class="flex items-center gap-1 text-xs font-mono text-accent">
+              <span class="group-open:hidden">Show</span>
+              <span class="hidden group-open:inline">Hide</span>
+              <span class="transition-transform duration-200 group-open:rotate-180">
+                ▾
+              </span>
+            </span>
+          </summary>
+
+          <div class="mt-4 pt-3 border-t border-border/50 text-sm">
+            <div class="flex flex-wrap gap-1.5">
+              {visitedCountries.map(c => (
+                <span class="rounded-md border border-border/70 bg-background/80 hover:border-accent/60 px-2 py-0.5 text-xs font-mono transition-colors">
+                  {c.name}{" "}
+                  <span class="opacity-50 text-[10px]">{c.code}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </details>
       </div>
     </section>
 

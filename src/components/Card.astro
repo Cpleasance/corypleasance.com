@@ -18,7 +18,12 @@ const estReadingTime = getReadingTime(body, readingTime);
 const locale = Astro.currentLocale ?? "en";
 ---
 
-<li class="group relative my-4 flex cursor-pointer flex-col rounded-xl border border-border/80 bg-muted/20 p-5 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-muted/40 hover:shadow-md">
+<li
+  class="post-card group relative my-4 flex cursor-pointer flex-col rounded-xl border border-border/80 bg-muted/20 p-5 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-muted/40 hover:shadow-md"
+  data-tags={JSON.stringify(tags?.map(t => slugifyStr(t)) ?? [])}
+  data-title={title.toLowerCase()}
+  data-desc={description?.toLowerCase() ?? ""}
+>
   <div class="flex h-full flex-col justify-between">
     <div>
       <a
@@ -73,8 +78,9 @@ const locale = Astro.currentLocale ?? "en";
         {tags.map(tag => (
           <li>
             <a
-              href={getRelativeLocaleUrl(locale, `tags/${slugifyStr(tag)}/`)}
-              class="border-border bg-accent/10 text-accent hover:bg-accent/20 rounded-md border border-accent/20 px-2 py-0.5 font-mono text-xs transition-colors"
+              href={`${getRelativeLocaleUrl(locale, "posts")}?filter=${slugifyStr(tag)}`}
+              data-tag-slug={slugifyStr(tag)}
+              class="tag-link border-border bg-accent/10 text-accent hover:bg-accent/20 rounded-md border border-accent/20 px-2 py-0.5 font-mono text-xs transition-colors"
             >
               #{tag}
             </a>
