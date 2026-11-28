@@ -92,19 +92,22 @@ const work = [
 
     {homePosts.length > 0 && (
       <section id="posts" class="border-border mt-12 border-t pt-10">
-        <h2 class="text-xl font-semibold tracking-wide">Posts</h2>
-        <ul>
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-semibold tracking-wide">Recent Posts</h2>
+          {sortedPosts.length > homePosts.length && (
+            <a
+              class={`${link} text-sm`}
+              href={getRelativeLocaleUrl(locale, "posts")}
+            >
+              All posts ({sortedPosts.length}) →
+            </a>
+          )}
+        </div>
+        <ul class="mt-4 space-y-4">
           {homePosts.map(data => (
             <Card variant="h3" {...data} />
           ))}
         </ul>
-        {sortedPosts.length > homePosts.length && (
-          <p class="mt-2">
-            <a class={link} href={getRelativeLocaleUrl(locale, "posts")}>
-              All posts
-            </a>
-          </p>
-        )}
       </section>
     )}
 

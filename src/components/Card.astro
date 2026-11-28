@@ -18,62 +18,66 @@ const estReadingTime = getReadingTime(body, readingTime);
 const locale = Astro.currentLocale ?? "en";
 ---
 
-<li class="my-6">
-  <a
-    href={getPostUrl(id, filePath, Astro.currentLocale)}
-    class:list={[
-      "text-accent inline-block text-lg font-medium",
-      "decoration-dashed underline-offset-4 hover:underline",
-      "focus-visible:no-underline focus-visible:underline-offset-0",
-    ]}
-  >
-    <Heading transition:name={toTransitionName(id)}>{title}</Heading>
-  </a>
-  <div class="text-muted-foreground my-1.5 flex flex-wrap items-center gap-x-2 text-sm">
-    <Datetime {...props} />
-    <span aria-hidden="true">·</span>
-    <span>{estReadingTime}</span>
-    {repoUrl && (
-      <>
+<li class="border-border/80 hover:border-accent bg-muted/20 hover:bg-muted/40 my-4 flex flex-col rounded-xl border p-5 transition-all shadow-xs hover:shadow-sm">
+  <div class="flex flex-col justify-between h-full">
+    <div>
+      <a
+        href={getPostUrl(id, filePath, Astro.currentLocale)}
+        class:list={[
+          "text-accent inline-block text-lg font-semibold",
+          "decoration-dashed underline-offset-4 hover:underline",
+          "focus-visible:no-underline focus-visible:underline-offset-0",
+        ]}
+      >
+        <Heading transition:name={toTransitionName(id)}>{title}</Heading>
+      </a>
+      <div class="text-muted-foreground my-1.5 flex flex-wrap items-center gap-x-2 text-xs sm:text-sm">
+        <Datetime {...props} />
         <span aria-hidden="true">·</span>
-        <a
-          href={repoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-accent inline-flex items-center gap-0.5 underline decoration-dashed underline-offset-2"
-        >
-          <span>Code</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="size-3.5 opacity-80"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </svg>
-        </a>
-      </>
+        <span>{estReadingTime}</span>
+        {repoUrl && (
+          <>
+            <span aria-hidden="true">·</span>
+            <a
+              href={repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-accent inline-flex items-center gap-0.5 underline decoration-dashed underline-offset-2"
+            >
+              <span>Code</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-3.5 opacity-80"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </a>
+          </>
+        )}
+      </div>
+      <p class="mt-2 text-sm leading-relaxed opacity-85">{description}</p>
+    </div>
+    {tags && tags.length > 0 && (
+      <ul class="mt-4 flex flex-wrap gap-1.5 pt-1">
+        {tags.map(tag => (
+          <li>
+            <a
+              href={getRelativeLocaleUrl(locale, `tags/${slugifyStr(tag)}/`)}
+              class="border-border bg-accent/10 text-accent hover:bg-accent/20 rounded-md border border-accent/20 px-2 py-0.5 text-xs font-mono transition-colors"
+            >
+              #{tag}
+            </a>
+          </li>
+        ))}
+      </ul>
     )}
   </div>
-  <p>{description}</p>
-  {tags && tags.length > 0 && (
-    <ul class="mt-2.5 flex flex-wrap gap-1.5">
-      {tags.map(tag => (
-        <li>
-          <a
-            href={getRelativeLocaleUrl(locale, `tags/${slugifyStr(tag)}/`)}
-            class="border-border bg-accent/10 text-accent hover:bg-accent/20 rounded-md border border-accent/20 px-2 py-0.5 text-xs font-mono transition-colors"
-          >
-            #{tag}
-          </a>
-        </li>
-      ))}
-    </ul>
-  )}
 </li>
