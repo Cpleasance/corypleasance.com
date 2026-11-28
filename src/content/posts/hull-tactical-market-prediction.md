@@ -60,7 +60,7 @@ def allocation(signal, alpha):
     return np.clip(alloc, 0.0, 2.0)       # 0 = cash, 2 = 2x leverage
 ```
 
-Start fully invested, lean in when the model is bullish, pull back when it's bearish. I named the scaling variable `kelly_fraction` and called it "Kelly" sizing at the time, which I'll come back to.
+Start fully invested, lean in when the model is bullish, pull back when it's bearish.
 
 Everything was validated with purged walk-forward cross-validation: five folds of 250 days, each trained only on the past, with a gap and a purge window between train and test so overlapping returns couldn't leak across. I also reimplemented the competition metric locally so the CV number meant the same thing as the leaderboard.
 
@@ -119,8 +119,6 @@ These are my own approximations from public data (the S&P 500 price index, with 
 **My CV was too noisy to choose between versions.** v32's competition metric across the five folds was 2.01, −0.57, 1.04, 1.82 and 0.35. That's a mean of 0.93 with a standard deviation of 0.95. Any tweak that moved the mean by 0.05 was well inside the noise, but I was treating changes that size as wins. More folds, or repeating CV over different start points, would have told me which changes were real.
 
 **I tuned the allocation on in-sample predictions.** The allocation search picked `alpha` by scoring the model's predictions on its _own_ training fold, where R² was 0.68. On the validation folds R² was −0.08. Of course the in-sample predictions said "bet bigger": they were overfit. It picked 1.1, the top of the grid, and a search that lands on the edge of its grid is a red flag I should have caught. Tuning it on out-of-fold predictions would have been honest.
-
-**"Kelly" wasn't Kelly.** `kelly_fraction` was just a variable name in my config, not something from the competition. The actual Kelly criterion sizes a bet by your expected return divided by its variance. Mine was a straight line around 1x, scaled by how big the prediction was compared to my other predictions, and it never looked at the variance of returns at all. On top of that, `kelly_fraction * alpha` is really one parameter split into two names. Calling it Kelly made it sound more principled than it was.
 
 **My training and serving features didn't match.** The evaluation gateway hands `predict()` one day at a time. My lag and rolling-volatility features are computed with `shift()` and `rolling_std()` on whatever frame comes in, and on a single row those are all empty. The code quietly filled them with their training medians. So a good chunk of the features the model learned from were constants at inference. Keeping a rolling history of past rows inside the predict function would have fixed it, and a simple test of "do the features at inference match the features in training for the same date?" would have caught it.
 
