@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
@@ -221,6 +222,8 @@ const groups = [
   description="AI agents, systems engineering, Linux tools, and competitive machine learning projects by Cory Pleasance."
 >
   <Header />
+
+  <Breadcrumb />
 
   <main id="main-content" class="app-layout pt-8 pb-12">
     <div class="space-y-2">

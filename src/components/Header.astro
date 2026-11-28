@@ -33,6 +33,9 @@ const pathWithoutTrailingSlash =
 const currentPath = stripLocale(pathWithoutTrailingSlash, locale);
 
 const isActive = (path: string) => {
+  if (path === "/" || path === "") {
+    return currentPath === "/" || currentPath === "";
+  }
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
   const pathArray = path.split("/").filter(p => p.trim());
   return currentPath === path || currentPathArray[0] === pathArray[0];
@@ -51,7 +54,9 @@ const isActive = (path: string) => {
   <div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 md:items-center md:py-6">
     <a
       href={getRelativeLocaleUrl(locale, "")}
-      class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap md:static md:my-auto md:text-2xl md:leading-none"
+      class="hover:text-accent absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap transition-colors md:static md:my-auto md:text-2xl md:leading-none"
+      title={`${site.title} - Home`}
+      aria-label={`${site.title} - Home`}
     >
       {site.title}
     </a>
@@ -75,6 +80,14 @@ const isActive = (path: string) => {
         id="menu-items"
         class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 md:mt-0 md:flex md:w-auto md:gap-x-1 md:gap-y-0 md:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium md:[&>li>a]:px-2 md:[&>li>a]:py-1"
       >
+        <li class="col-span-2">
+          <a
+            href={getRelativeLocaleUrl(locale, "")}
+            class:list={{ "active-nav": isActive("/") }}
+          >
+            {t.nav.home}
+          </a>
+        </li>
         <li class="col-span-2">
           <a
             href={getRelativeLocaleUrl(locale, "projects")}
