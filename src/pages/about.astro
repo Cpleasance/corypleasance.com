@@ -59,6 +59,32 @@ const interests = [
       "Passionate home cook with a particular obsession with regional Italian food — making fresh pasta from scratch, dialling in high-hydration focaccia, and slow-simmering authentic ragù.",
   },
 ];
+
+const visitedCountries = [
+  { name: "Australia", code: "AUS" },
+  { name: "Belgium", code: "BEL" },
+  { name: "Egypt", code: "EGY" },
+  { name: "Finland", code: "FIN" },
+  { name: "France", code: "FRA" },
+  { name: "Greece", code: "GRC" },
+  { name: "India", code: "IND" },
+  { name: "Italy", code: "ITA" },
+  { name: "Lithuania", code: "LTU" },
+  { name: "Malaysia", code: "MYS" },
+  { name: "Maldives", code: "MDV" },
+  { name: "Malta", code: "MLT" },
+  { name: "Netherlands", code: "NLD" },
+  { name: "Oman", code: "OMN" },
+  { name: "Qatar", code: "QAT" },
+  { name: "Saudi Arabia", code: "SAU" },
+  { name: "Singapore", code: "SGP" },
+  { name: "Spain", code: "ESP" },
+  { name: "Switzerland", code: "CHE" },
+  { name: "Tanzania", code: "TZA" },
+  { name: "Thailand", code: "THA" },
+  { name: "United Kingdom", code: "GBR" },
+  { name: "Vatican City", code: "VAT" },
+];
 ---
 
 <Layout
@@ -76,6 +102,54 @@ const interests = [
       <div class="mt-8 grid gap-8 md:grid-cols-[1fr_260px] lg:grid-cols-[1fr_300px] items-start">
         <div class="space-y-4 leading-relaxed text-base sm:text-lg opacity-90">
           <Content />
+
+          <!-- Interactive Countries Visited Drawer -->
+          <details class="group mt-4 rounded-xl border border-border/80 bg-muted/20 p-4 transition-all hover:border-accent/60">
+            <summary class="flex cursor-pointer items-center justify-between text-sm font-medium select-none list-none gap-2">
+              <span class="flex items-center gap-2">
+                <span class="size-2 rounded-full bg-accent shrink-0"></span>
+                <span class="font-semibold text-foreground">
+                  23 countries visited
+                </span>
+                <span class="hidden sm:inline text-xs font-mono opacity-60">
+                  Europe · Asia · Africa · Oceania
+                </span>
+              </span>
+              <span class="flex items-center gap-1 text-xs font-mono text-accent">
+                <span class="group-open:hidden">Show</span>
+                <span class="hidden group-open:inline">Hide</span>
+                <span class="transition-transform duration-200 group-open:rotate-180">
+                  ▾
+                </span>
+              </span>
+            </summary>
+
+            <div class="mt-4 pt-3 border-t border-border/50 text-sm">
+              <p class="text-xs opacity-75 mb-3 leading-relaxed">
+                Places I've lived in or explored across Europe, Asia, Africa,
+                and Oceania:
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                {visitedCountries.map(c => (
+                  <span class="rounded-md border border-border/70 bg-background/80 hover:border-accent/60 px-2 py-0.5 text-xs font-mono transition-colors">
+                    {c.name}{" "}
+                    <span class="opacity-50 text-[10px]">{c.code}</span>
+                  </span>
+                ))}
+              </div>
+              <div class="mt-4 pt-2 border-t border-border/30 flex justify-end">
+                <a
+                  href="https://countries-visited.com/?visited=AUS,BEL,CHE,EGY,ESP,FIN,FRA,GBR,GRC,IND,ITA,LTU,MDV,MLT,MYS,NLD,OMN,QAT,SAU,SGP,THA,TZA,VAT"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:text-accent font-mono text-xs underline decoration-dashed underline-offset-4 inline-flex items-center gap-1 opacity-80"
+                >
+                  <span>Interactive world map</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </details>
         </div>
         <div class="order-first md:order-last">
           <figure class="overflow-hidden rounded-xl border border-border/80 bg-muted/20 shadow-xs">
