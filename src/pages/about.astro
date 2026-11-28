@@ -50,63 +50,55 @@ const uni = [
 
   <main id="main-content" class="app-layout pb-12">
     <section class="pt-8">
-      <div class="flex flex-col-reverse gap-6 sm:flex-row sm:items-center sm:justify-between border-b border-border/80 pb-8">
-        <div>
-          <h1 class="text-3xl font-bold sm:text-4xl">About Me</h1>
-          <p class="mt-2 text-sm text-accent font-mono">
-            Cory Pleasance · Data Science &amp; AI
-          </p>
-          <div class="mt-3 flex flex-wrap gap-2 text-xs font-mono opacity-80">
-            <span class="rounded-md border border-border bg-muted/40 px-2 py-0.5">
-              University of Stirling
-            </span>
-            <span class="rounded-md border border-border bg-muted/40 px-2 py-0.5">
-              British &amp; Maltese
-            </span>
-            <span class="rounded-md border border-border bg-muted/40 px-2 py-0.5">
-              Scotland, UK
-            </span>
-          </div>
-        </div>
-        <img
-          src={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}avatar.png`}
-          alt="Pixel-art portrait of Cory Pleasance"
-          width="112"
-          height="112"
-          class="size-20 sm:size-28 shrink-0 rounded-2xl border-2 border-border/80 shadow-md p-1 bg-muted/30"
-          style="image-rendering: pixelated"
-        />
-      </div>
+      <h1 class="text-3xl font-bold sm:text-4xl">About</h1>
 
-      <div class="mt-8 space-y-4 leading-relaxed text-base sm:text-lg opacity-90">
-        <Content />
+      <div class="mt-8 grid gap-8 md:grid-cols-[1fr_260px] lg:grid-cols-[1fr_300px] items-start">
+        <div class="space-y-4 leading-relaxed text-base sm:text-lg opacity-90">
+          <Content />
+        </div>
+        <div class="order-first md:order-last">
+          <figure class="overflow-hidden rounded-xl border border-border/80 bg-muted/20 shadow-xs">
+            <picture>
+              <source
+                srcset={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}cory.webp`}
+                type="image/webp"
+              />
+              <img
+                src={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}cory.jpg`}
+                alt="Cory Pleasance on a hill summit in Scotland"
+                width="840"
+                height="1117"
+                class="w-full h-auto object-cover"
+                loading="eager"
+              />
+            </picture>
+            <figcaption class="p-2.5 text-center text-xs opacity-70 border-t border-border/50">
+              In the Ochil Hills above Stirling
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
     <section id="now" class="border-border mt-12 border-t pt-10">
       <h2 class="text-xl font-semibold tracking-wide">What I'm working on</h2>
-      <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      <ul class="mt-6 space-y-6">
         {now.map(n => (
-          <div class="border-border/80 hover:border-accent/70 bg-muted/20 hover:bg-muted/40 rounded-xl border p-5 transition-all shadow-xs flex flex-col justify-between">
-            <div>
-              <h3 class="font-semibold text-foreground">{n.title}</h3>
-              <p class="mt-2 text-sm opacity-80 leading-relaxed">{n.body}</p>
-            </div>
-          </div>
+          <li>
+            <h3 class="font-semibold text-foreground">{n.title}</h3>
+            <p class="mt-1 text-sm sm:text-base leading-relaxed opacity-80">
+              {n.body}
+            </p>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
 
     <section id="university" class="border-border mt-12 border-t pt-10">
       <h2 class="text-xl font-semibold tracking-wide">At university</h2>
-      <ul class="mt-6 space-y-3">
+      <ul class="mt-6 list-disc space-y-2 ps-5 marker:text-accent">
         {uni.map(u => (
-          <li class="border-border/70 bg-muted/15 rounded-xl border p-4 flex items-start gap-3">
-            <div class="mt-1 size-2 rounded-full bg-accent shrink-0" />
-            <span class="text-sm font-medium leading-relaxed opacity-90">
-              {u}
-            </span>
-          </li>
+          <li class="leading-relaxed opacity-85 text-sm sm:text-base">{u}</li>
         ))}
       </ul>
     </section>

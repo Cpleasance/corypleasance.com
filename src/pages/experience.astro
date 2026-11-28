@@ -8,7 +8,24 @@ type Job = {
   role: string;
   org: string;
   when: string;
+  location?: string;
   tag?: string;
+  note?: string;
+  bullets?: string[];
+};
+
+type Certification = {
+  issuer: string;
+  name: string;
+  date: string;
+  credentialId?: string;
+  skills?: string[];
+};
+
+type VolunteerRole = {
+  role: string;
+  org: string;
+  when: string;
   note?: string;
 };
 
@@ -18,37 +35,146 @@ const experience: Job[] = [
     org: "Barclays UK",
     when: "Summer 2027",
     tag: "Incoming",
-    note: "Offered after the Barclays Discovery Programme (April 2026).",
-  },
-  {
-    role: "Demonstrator, Data Structures and Algorithms (CSCU9A3)",
-    org: "University of Stirling",
-    when: "Sep 2026–now",
+    note: "Offered following the Barclays Discovery Programme (April 2026).",
   },
   {
     role: "IT Assistant",
     org: "University of Stirling",
-    when: "Sep 2026–now",
+    when: "Sep 2026 – Present",
+    location: "Stirling, Scotland · On-site",
+    note: "Contract IT support assisting university users and Information Services with workstation hardware, accounts, and campus network infrastructure.",
+  },
+  {
+    role: "Demonstrator, Data Structures and Algorithms (CSCU9A3)",
+    org: "University of Stirling",
+    when: "Sep 2026 – Present",
+    location: "Stirling, Scotland · On-site",
+    note: "Demonstrator for undergraduate computing students, guiding practical lab sessions on core data structures, algorithm efficiency, and problem solving.",
   },
   {
     role: "Helping with LLM security research",
     org: "University of Stirling",
-    when: "2024–now",
-    note: "Helping build an automated system that tests how robust LLMs are. Paper in progress.",
+    when: "2024 – Present",
+    note: "Helping build an automated system that tests how robust LLMs are under adversarial conditions. Research paper in progress.",
   },
   {
-    role: "Technology, Data & Innovation work experience",
+    role: "Work Experience, Technology, Data & Innovation (TDI)",
     org: "Deutsche Bank",
-    when: "2025",
-    note: "Time with the algorithmic trading team and with the GenAI and AI Architecture teams on LLM robustness in regulated environments.",
+    when: "May 2025",
+    location: "London, UK · On-site",
+    note: "Two-week on-site internship with the Technology, Data & Innovation (TDI) team, gaining hands-on systems support experience and exploring enterprise AI adoption in financial services.",
+    bullets: [
+      "Supported users with financial tooling, including Bloomberg terminals and internal core banking systems.",
+      "Reconfigured desktop hardware and workstations to improve runtime stability and performance.",
+      "Discussed LLM robustness and security boundaries with AI Architects and senior engineering leaders.",
+      "Gained insight into the adoption of AI for power-demand surge management and the operational ethics of algorithmic trading.",
+      "Attended an internal Google Cloud Next session covering cloud architectures in regulated finance.",
+    ],
   },
 ];
 
-const certifications = [
-  "Anthropic: Building with the Claude API · Model Context Protocol: Advanced Topics (2026)",
-  "Python Institute: PCPP, Programming with Python Professional (2025)",
-  "IBM: Advanced Deep Learning Specialist, plus three ML/DL certificates (2025)",
-  "Google: Foundations of Data Science (2025)",
+const volunteering: VolunteerRole[] = [
+  {
+    role: "Course Representative for Computer Science Year 2",
+    org: "University of Stirling",
+    when: "Nov 2025 – May 2026",
+    note: "Elected student voice for Year 2 Computer Science cohort, liaising between students and faculty leadership.",
+  },
+  {
+    role: "Module Representative for Data Science Year 1",
+    org: "University of Stirling",
+    when: "Jan 2025 – May 2025",
+  },
+  {
+    role: "Module Representative for Computer Science Year 1",
+    org: "University of Stirling",
+    when: "Jan 2025 – May 2025",
+  },
+];
+
+const certifications: Certification[] = [
+  {
+    issuer: "Anthropic",
+    name: "Model Context Protocol: Advanced Topics",
+    date: "Jul 2026",
+    credentialId: "z5yvrzigc6fz",
+  },
+  {
+    issuer: "Anthropic",
+    name: "Building with the Claude API",
+    date: "Jan 2026",
+    credentialId: "ybhb3qhijdem",
+  },
+  {
+    issuer: "OpenEDG Python Institute",
+    name: "Programming with Python Professional Certificate",
+    date: "Nov 2025",
+    skills: ["OOP"],
+  },
+  {
+    issuer: "Google",
+    name: "Foundations of Data Science",
+    date: "Jul 2025",
+    credentialId: "PHWCK9ZC50KZ",
+  },
+  {
+    issuer: "IBM",
+    name: "Advanced Deep Learning Specialist",
+    date: "Jul 2025",
+  },
+  {
+    issuer: "IBM",
+    name: "Deep Learning with Keras and Tensorflow",
+    date: "Jul 2025",
+    credentialId: "7BHSH0NE1HBW",
+  },
+  {
+    issuer: "IBM",
+    name: "Introduction to Deep Learning & Neural Networks with Keras",
+    date: "Jun 2025",
+    credentialId: "CW0FNKE9DQRX",
+  },
+  {
+    issuer: "IBM",
+    name: "Machine Learning with Python",
+    date: "Jun 2025",
+    credentialId: "ZI3V561WS8Y2",
+  },
+  {
+    issuer: "Anaconda",
+    name: "Anaconda Python for Data Science Professional Certificate",
+    date: "Apr 2025",
+    skills: ["Data Analysis"],
+  },
+  {
+    issuer: "Wolfram",
+    name: "Statistics Foundations Professional Certificate",
+    date: "Jan 2025",
+    skills: ["Wolfram Language"],
+  },
+  {
+    issuer: "Microsoft & LinkedIn",
+    name: "Build Your Generative AI Productivity Skills",
+    date: "Dec 2024",
+  },
+  {
+    issuer: "LinkedIn",
+    name: "Practical GitHub Actions",
+    date: "Dec 2024",
+    skills: ["GitHub Actions"],
+  },
+  {
+    issuer: "LinkedIn",
+    name: "Learning Docker",
+    date: "Dec 2024",
+    skills: ["Docker"],
+  },
+  {
+    issuer: "OpenEDG Python Institute",
+    name: "PCEP – Certified Entry-Level Python Programmer",
+    date: "Jan 2024",
+    skills: ["Python"],
+  },
 ];
 
 const tools = [
@@ -67,7 +193,7 @@ const tools = [
 <Layout
   title={`Experience | ${config.site.title}`}
   ogImage="/og/experience.png"
-  description="Research, work experience and tools: Cory Pleasance, Data Science & AI at the University of Stirling."
+  description="Work experience, research, academic representation, technical tools, and verified certifications: Cory Pleasance."
 >
   <Header />
 
@@ -89,9 +215,16 @@ const tools = [
 
           <div class="border-border/80 hover:border-accent bg-muted/20 hover:bg-muted/40 rounded-xl border p-5 transition-all shadow-xs">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <span class="text-accent font-mono text-xs font-semibold sm:text-sm">
-                {e.when}
-              </span>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-accent font-mono text-xs font-semibold sm:text-sm">
+                  {e.when}
+                </span>
+                {e.location && (
+                  <span class="text-xs opacity-60 font-mono">
+                    · {e.location}
+                  </span>
+                )}
+              </div>
               {e.tag && (
                 <span class="border border-accent/30 bg-accent/15 text-accent rounded-full px-2.5 py-0.5 font-mono text-xs font-semibold">
                   {e.tag}
@@ -107,10 +240,54 @@ const tools = [
                 {e.note}
               </p>
             )}
+
+            {e.bullets && e.bullets.length > 0 && (
+              <ul class="mt-3 list-disc space-y-1.5 ps-5 text-sm leading-relaxed opacity-80 marker:text-accent border-t border-border/50 pt-3">
+                {e.bullets.map(b => (
+                  <li>{b}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       ))}
     </div>
+
+    <!-- Academic Representation & Volunteering -->
+    <section id="volunteering" class="border-border mt-14 border-t pt-10">
+      <div class="space-y-1">
+        <h2 class="text-xl font-semibold tracking-wide">
+          Academic Representation & Volunteering
+        </h2>
+        <p class="text-sm opacity-75">
+          Elected student representation and academic cohort advocacy at the
+          University of Stirling.
+        </p>
+      </div>
+
+      <div class="mt-6 space-y-4">
+        {volunteering.map(v => (
+          <div class="border-border/80 bg-muted/20 hover:bg-muted/30 rounded-xl border p-5 transition-all shadow-xs">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-accent font-mono text-xs font-semibold sm:text-sm">
+                {v.when}
+              </span>
+              <span class="border border-border/70 bg-muted/40 text-foreground/80 rounded-md px-2 py-0.5 font-mono text-xs">
+                {v.org}
+              </span>
+            </div>
+            <h3 class="mt-2 text-base sm:text-lg font-semibold text-foreground">
+              {v.role}
+            </h3>
+            {v.note && (
+              <p class="mt-2 text-sm leading-relaxed opacity-75 border-t border-border/50 pt-2">
+                {v.note}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
 
     <!-- Tools Section -->
     <section id="tools" class="border-border mt-14 border-t pt-10">
@@ -135,28 +312,49 @@ const tools = [
       </div>
     </section>
 
-    <!-- Certifications Section -->
+    <!-- Licenses & Certifications Section -->
     <section id="certifications" class="border-border mt-14 border-t pt-10">
-      <h2 class="text-xl font-semibold tracking-wide">Certifications</h2>
+      <div class="space-y-1">
+        <h2 class="text-xl font-semibold tracking-wide">
+          Licenses & Certifications
+        </h2>
+        <p class="text-sm opacity-75">
+          Verified professional certifications across artificial intelligence,
+          systems, and data science.
+        </p>
+      </div>
+
       <div class="mt-6 grid gap-3 sm:grid-cols-2">
-        {certifications.map(c => {
-          const colonIdx = c.indexOf(":");
-          const issuer = colonIdx > -1 ? c.slice(0, colonIdx) : "Certification";
-          const title = colonIdx > -1 ? c.slice(colonIdx + 1).trim() : c;
-          return (
-            <div class="border-border/80 bg-muted/20 hover:border-accent/60 rounded-xl border p-4 flex items-start gap-3 transition-colors">
-              <div class="mt-1 size-2 rounded-full bg-accent shrink-0" />
-              <div>
+        {certifications.map(c => (
+          <div class="border-border/80 bg-muted/20 hover:border-accent/60 rounded-xl border p-4 flex flex-col justify-between transition-colors">
+            <div>
+              <div class="flex items-center justify-between gap-2">
                 <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">
-                  {issuer}
+                  {c.issuer}
                 </span>
-                <p class="text-sm font-medium mt-0.5 leading-snug opacity-90">
-                  {title}
-                </p>
+                <span class="text-xs font-mono opacity-60">{c.date}</span>
               </div>
+              <h3 class="text-sm font-semibold mt-1 leading-snug text-foreground">
+                {c.name}
+              </h3>
             </div>
-          );
-        })}
+
+            {(c.credentialId || (c.skills && c.skills.length > 0)) && (
+              <div class="mt-3 flex flex-wrap items-center gap-2 border-t border-border/40 pt-2 text-xs font-mono">
+                {c.credentialId && (
+                  <span class="text-[11px] opacity-70">
+                    ID: <code class="text-foreground/90">{c.credentialId}</code>
+                  </span>
+                )}
+                {c.skills?.map(skill => (
+                  <span class="rounded bg-muted/50 border border-border/60 px-1.5 py-0.5 text-[10px] text-accent">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </section>
   </main>
