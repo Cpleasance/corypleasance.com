@@ -96,11 +96,16 @@ const t = useTranslations(locale);
         search.triggerSearch(query);
       }
 
-      // Reset search param if search input is cleared
-      const searchInput = document.querySelector(".pagefind-ui__search-input");
+      // Reset search param if search input is cleared and auto-focus
+      const searchInput = document.querySelector<HTMLInputElement>(
+        ".pagefind-ui__search-input"
+      );
       const clearButton = document.querySelector(".pagefind-ui__search-clear");
       searchInput?.addEventListener("input", resetSearchParam);
       clearButton?.addEventListener("click", resetSearchParam);
+      if (searchInput && !query) {
+        searchInput.focus();
+      }
 
       function resetSearchParam(e: Event) {
         if ((e.target as HTMLInputElement)?.value.trim() === "") {
