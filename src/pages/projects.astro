@@ -5,6 +5,7 @@ import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
 type Project = {
+  category: "agents" | "systems" | "ml";
   label: string;
   result?: string;
   title: string;
@@ -13,14 +14,120 @@ type Project = {
   links?: { text: string; href: string }[];
 };
 
-const competitions: Project[] = [
+const aiProjects: Project[] = [
   {
-    label: "Kaggle · solo",
+    category: "agents",
+    label: "Python · MCP Server",
+    result: "PyPI Package",
+    title: "Token Runway",
+    blurb:
+      "Live token runway and rate-limit budget guard MCP server for Claude Code, Cursor, and AI agents. Gives LLMs quota awareness before they hit 429 limits.",
+    links: [
+      { text: "Code", href: "https://github.com/Cpleasance/token-runway" },
+      { text: "PyPI", href: "https://pypi.org/project/token-runway/" },
+    ],
+  },
+  {
+    category: "agents",
+    label: "Python · MCP Bridge",
+    result: "PyPI Package",
+    title: "BloxBridge MCP (Roblox Studio Bridge)",
+    blurb:
+      "Reliable Model Context Protocol bridge connecting Claude Code and Cursor to Roblox Studio with auto-reconnect, live sync, and connection fixups.",
+    links: [
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/roblox-studio-mcp-bridge",
+      },
+      {
+        text: "PyPI",
+        href: "https://pypi.org/project/roblox-studio-mcp-bridge/",
+      },
+    ],
+  },
+];
+
+const systemsProjects: Project[] = [
+  {
+    category: "systems",
+    label: "Rust · Desktop & CLI",
+    title: "WakeWorkstation",
+    blurb:
+      "One-click remote PC Wake-on-LAN, health check & Moonlight game streaming launcher via Raspberry Pi SSH relay.",
+    links: [
+      { text: "Code", href: "https://github.com/Cpleasance/wake-workstation" },
+    ],
+  },
+  {
+    category: "systems",
+    label: "Rust · Linux CLI",
+    title: "thresholdctl",
+    blurb:
+      "CLI utility and udev rule generator for ThinkPad and Linux battery charge threshold management, featuring Desk and Travel profile switching to preserve battery health.",
+    links: [
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/laptop-tools/tree/main/thresholdctl",
+      },
+    ],
+  },
+  {
+    category: "systems",
+    label: "Rust · Linux Daemon",
+    title: "powerwatch",
+    blurb:
+      "Switches laptop to responsive battery scaling when unplugged, monitors wattage budgets, and pauses heavy background tasks.",
+    links: [
+      {
+        text: "Write-up",
+        href: "/posts/fixing-linux-battery-stutter-with-rust",
+      },
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/laptop-tools/tree/main/powerwatch",
+      },
+    ],
+  },
+  {
+    category: "systems",
+    label: "Rust · Linux Daemon",
+    title: "resumecheck",
+    blurb:
+      "Holds a systemd sleep delay inhibitor, auto-recovers failed hardware like the fingerprint reader, and verifies connectivity after waking.",
+    links: [
+      {
+        text: "Write-up",
+        href: "/posts/fixing-linux-battery-stutter-with-rust",
+      },
+      {
+        text: "Code",
+        href: "https://github.com/Cpleasance/laptop-tools/tree/main/resumecheck",
+      },
+    ],
+  },
+  {
+    category: "systems",
+    label: "x86 Assembly · C",
+    title: "Custom bootloader and minimal OS",
+    blurb:
+      "An x86 Assembly bootloader and bare-metal kernel, plus a FAT filesystem utility in C, debugged in Bochs.",
+    links: [{ text: "Code", href: "https://github.com/Cpleasance/OS-Build" }],
+  },
+];
+
+const mlProjects: Project[] = [
+  {
+    category: "ml",
+    label: "Kaggle · Solo",
     result: "Bronze medal · 290th of 4,186 (top 7%)",
     title: "AI Agent Security: Multi-Step Tool Attacks",
     blurb:
       "The guardrail tracked whether untrusted input influenced a later privileged action; my attack made the privileged action first, so there was nothing to trace.",
     links: [
+      {
+        text: "Write-up",
+        href: "/posts/kaggle-agent-security-bronze",
+      },
       {
         text: "Code & report",
         href: "https://github.com/Cpleasance/kaggle-ai-agent-security",
@@ -32,7 +139,8 @@ const competitions: Project[] = [
     ],
   },
   {
-    label: "Kaggle · Gemma 4 paper track",
+    category: "ml",
+    label: "Kaggle · Gemma 4 Paper Track",
     title: "It Shouldn't Matter What Task Is Given",
     blurb: "A held-out task pool and a pre-flight suite for evaluating agents.",
     links: [
@@ -47,7 +155,8 @@ const competitions: Project[] = [
     ],
   },
   {
-    label: "Kaggle",
+    category: "ml",
+    label: "Kaggle · Quant Finance",
     result: "479th of 3,677 (top 13%)",
     title: "Hull Tactical Market Prediction",
     blurb:
@@ -65,7 +174,8 @@ const competitions: Project[] = [
     ],
   },
   {
-    label: "Numerai",
+    category: "ml",
+    label: "Numerai · Quant Tournament",
     result: "Live tournament",
     title: "Numerai Classic",
     blurb:
@@ -73,140 +183,202 @@ const competitions: Project[] = [
   },
 ];
 
-const built: Project[] = [
-  {
-    label: "Python · MCP server",
-    title: "Token Runway",
-    blurb:
-      "Live token runway and rate-limit budget guard MCP server for Claude Code, Cursor, and AI agents. Gives LLMs quota awareness before they hit 429 limits.",
-    links: [
-      { text: "Code", href: "https://github.com/Cpleasance/token-runway" },
-      { text: "PyPI", href: "https://pypi.org/project/token-runway/" },
-    ],
-  },
-  {
-    label: "Python · MCP bridge",
-    title: "BloxBridge MCP (Roblox Studio Bridge)",
-    blurb:
-      "Reliable Model Context Protocol bridge connecting Claude Code and Cursor to Roblox Studio with auto-reconnect, live sync, and connection fixups.",
-    links: [
-      {
-        text: "Code",
-        href: "https://github.com/Cpleasance/roblox-studio-mcp-bridge",
-      },
-      {
-        text: "PyPI",
-        href: "https://pypi.org/project/roblox-studio-mcp-bridge/",
-      },
-    ],
-  },
-  {
-    label: "Rust · desktop app and CLI",
-    title: "WakeWorkstation",
-    blurb:
-      "One-click remote PC Wake-on-LAN, health check & Moonlight game streaming launcher via Raspberry Pi SSH relay.",
-    links: [
-      { text: "Code", href: "https://github.com/Cpleasance/wake-workstation" },
-    ],
-  },
-  {
-    label: "Rust · Linux daemon",
-    title: "powerwatch",
-    blurb:
-      "Switches my laptop to responsive battery scaling when unplugged, monitors wattage budgets, and pauses heavy background tasks.",
-    links: [
-      {
-        text: "Write-up",
-        href: "/posts/fixing-linux-battery-stutter-with-rust",
-      },
-      {
-        text: "Code",
-        href: "https://github.com/Cpleasance/laptop-tools/tree/main/powerwatch",
-      },
-    ],
-  },
-  {
-    label: "Rust · Linux daemon",
-    title: "resumecheck",
-    blurb:
-      "Holds a systemd sleep delay inhibitor, auto-recovers failed hardware like the fingerprint reader, and verifies connectivity after waking.",
-    links: [
-      {
-        text: "Write-up",
-        href: "/posts/fixing-linux-battery-stutter-with-rust",
-      },
-      {
-        text: "Code",
-        href: "https://github.com/Cpleasance/laptop-tools/tree/main/resumecheck",
-      },
-    ],
-  },
-  {
-    label: "Rust · Linux CLI",
-    title: "thresholdctl",
-    blurb:
-      "CLI utility and udev rule generator for ThinkPad and Linux battery charge threshold management, featuring Desk and Travel profile switching to preserve battery health.",
-    links: [
-      {
-        text: "Code",
-        href: "https://github.com/Cpleasance/laptop-tools/tree/main/thresholdctl",
-      },
-    ],
-  },
-  {
-    label: "x86 Assembly · C",
-    title: "Custom bootloader and minimal OS",
-    blurb:
-      "An x86 Assembly bootloader and bare-metal kernel, plus a FAT filesystem utility in C, debugged in Bochs.",
-    links: [{ text: "Code", href: "https://github.com/Cpleasance/OS-Build" }],
-  },
-];
+const totalProjects =
+  aiProjects.length + systemsProjects.length + mlProjects.length;
 
 const groups = [
-  { id: "competitions", heading: "Competitions", items: competitions },
-  { id: "built", heading: "Things I've built", items: built },
+  {
+    id: "agents",
+    heading: "AI Agents & Developer Tools",
+    count: aiProjects.length,
+    description:
+      "Autonomous systems, Model Context Protocol servers, and agent tooling.",
+    items: aiProjects,
+  },
+  {
+    id: "systems",
+    heading: "Systems & Linux Engineering",
+    count: systemsProjects.length,
+    description:
+      "Daemons, low-level CLI utilities, power management, and OS kernels.",
+    items: systemsProjects,
+  },
+  {
+    id: "ml",
+    heading: "Machine Learning & Competitions",
+    count: mlProjects.length,
+    description:
+      "Adversarial security benchmarks, quantitative finance models, and competitive Kaggle rankings.",
+    items: mlProjects,
+  },
 ];
-
-const link = "hover:text-accent underline decoration-dashed underline-offset-4";
 ---
 
 <Layout
   title={`Projects | ${config.site.title}`}
   ogImage="/og/projects.png"
-  description="Competitions, research code and systems projects by Cory Pleasance."
+  description="AI agents, systems engineering, Linux tools, and competitive machine learning projects by Cory Pleasance."
 >
   <Header />
 
   <main id="main-content" class="app-layout pt-8 pb-12">
-    <h1 class="text-3xl font-bold sm:text-4xl">Projects</h1>
+    <div class="space-y-2">
+      <h1 class="text-3xl font-bold sm:text-4xl">Projects</h1>
+      <p class="text-sm opacity-75 sm:text-base">
+        A collection of open-source tools, system daemons, agent frameworks, and
+        competition benchmarks.
+      </p>
+    </div>
 
-    {groups.map(g => (
-      <section id={g.id} class="mt-12">
-        <h2 class="text-xl font-semibold tracking-wide">{g.heading}</h2>
-        <ul class="mt-4 grid gap-4 sm:grid-cols-2">
-          {g.items.map(p => (
-            <li class="border-border flex flex-col rounded-lg border p-4">
-              <p class="text-sm opacity-60">{p.label}</p>
-              <h3 class="mt-1 font-semibold">{p.title}</h3>
-              {p.result && (
-                <p class="text-accent mt-1 text-sm font-medium">{p.result}</p>
-              )}
-              {p.blurb && <p class="mt-2 text-sm opacity-80">{p.blurb}</p>}
-              {p.links && (
-                <p class="mt-auto flex flex-wrap gap-x-4 pt-3 text-sm">
-                  {p.links.map(l => (
-                    <a class={link} href={l.href}>
-                      {l.text}
-                    </a>
-                  ))}
-                </p>
-              )}
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))}
+    <!-- Filter Chips -->
+    <div class="mt-8 flex flex-wrap items-center gap-2 border-b border-border/80 pb-6">
+      <button
+        class="chip rounded-lg border border-accent bg-accent px-3 py-1.5 font-mono text-xs font-semibold text-background transition-all hover:opacity-90"
+        data-filter="all"
+        aria-pressed="true"
+      >
+        All ({totalProjects})
+      </button>
+      <button
+        class="chip rounded-lg border border-border bg-muted/30 px-3 py-1.5 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+        data-filter="agents"
+        aria-pressed="false"
+      >
+        AI Agents ({aiProjects.length})
+      </button>
+      <button
+        class="chip rounded-lg border border-border bg-muted/30 px-3 py-1.5 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+        data-filter="systems"
+        aria-pressed="false"
+      >
+        Systems & Linux ({systemsProjects.length})
+      </button>
+      <button
+        class="chip rounded-lg border border-border bg-muted/30 px-3 py-1.5 font-mono text-xs font-semibold text-foreground/85 transition-all hover:border-accent hover:text-accent"
+        data-filter="ml"
+        aria-pressed="false"
+      >
+        ML & Competitions ({mlProjects.length})
+      </button>
+    </div>
+
+    <!-- Project Sections -->
+    <div class="mt-8 space-y-12">
+      {groups.map(g => (
+        <section id={g.id} class="project-section space-y-4" data-group={g.id}>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl font-semibold tracking-wide">{g.heading}</h2>
+              <span class="rounded-full border border-border/60 bg-muted/40 px-2 py-0.5 font-mono text-xs opacity-75">
+                {g.count}
+              </span>
+            </div>
+            <p class="text-xs opacity-70 sm:text-sm">{g.description}</p>
+          </div>
+
+          <ul class="grid gap-4 sm:grid-cols-2">
+            {g.items.map(p => (
+              <li
+                class="project-card group relative flex flex-col justify-between rounded-xl border border-border/80 bg-muted/20 p-5 shadow-xs transition-all duration-200 ease-out hover:-translate-y-1 hover:border-accent hover:bg-muted/40 hover:shadow-md"
+                data-category={p.category}
+              >
+                <div>
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="rounded-md border border-border/60 bg-background/80 px-2 py-0.5 font-mono text-xs text-accent">
+                      {p.label}
+                    </span>
+                    {p.result && (
+                      <span class="rounded-full border border-accent/30 bg-accent/15 px-2 py-0.5 font-mono text-[11px] font-semibold text-accent">
+                        {p.result}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 class="mt-3 text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
+                    {p.title}
+                  </h3>
+
+                  {p.blurb && (
+                    <p class="mt-2 text-sm leading-relaxed opacity-80">
+                      {p.blurb}
+                    </p>
+                  )}
+                </div>
+
+                {p.links && p.links.length > 0 && (
+                  <div class="mt-5 flex flex-wrap gap-2 border-t border-border/50 pt-3">
+                    {p.links.map(l => (
+                      <a
+                        class="inline-flex items-center gap-1 rounded-md border border-border/70 bg-background/60 px-2.5 py-1 font-mono text-xs font-medium text-foreground/85 transition-all hover:border-accent hover:bg-accent/10 hover:text-accent"
+                        href={l.href}
+                      >
+                        <span>{l.text}</span>
+                        <span class="text-[10px] opacity-70 transition-transform group-hover:translate-x-0.5">
+                          →
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
   </main>
 
   <Footer />
 </Layout>
+
+<script>
+  function setupProjectFilters() {
+    const chips =
+      document.querySelectorAll<HTMLButtonElement>(".chip[data-filter]");
+    const cards = document.querySelectorAll<HTMLElement>(".project-card");
+    const sections = document.querySelectorAll<HTMLElement>(".project-section");
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const filter = chip.dataset.filter;
+
+        chips.forEach(c => {
+          c.classList.remove("border-accent", "bg-accent", "text-background");
+          c.classList.add("border-border", "bg-muted/30", "text-foreground/85");
+          c.setAttribute("aria-pressed", "false");
+        });
+
+        chip.classList.add("border-accent", "bg-accent", "text-background");
+        chip.classList.remove(
+          "border-border",
+          "bg-muted/30",
+          "text-foreground/85"
+        );
+        chip.setAttribute("aria-pressed", "true");
+
+        cards.forEach(card => {
+          const category = card.dataset.category;
+          if (filter === "all" || category === filter) {
+            card.classList.remove("hidden");
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+
+        sections.forEach(section => {
+          const visible = section.querySelectorAll(
+            ".project-card:not(.hidden)"
+          );
+          if (visible.length === 0) {
+            section.classList.add("hidden");
+          } else {
+            section.classList.remove("hidden");
+          }
+        });
+      });
+    });
+  }
+
+  setupProjectFilters();
+  document.addEventListener("astro:after-swap", setupProjectFilters);
+</script>
