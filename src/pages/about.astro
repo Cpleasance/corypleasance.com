@@ -41,21 +41,18 @@ const uni = [
 
 const interests = [
   {
-    icon: "🏃",
     title: "Trail & Ultramarathons",
     tag: "Outdoors",
     description:
       "Living right beneath the Ochil Hills above Stirling makes it easy to head up the ridge. I'm currently training to step up from trail runs into ultramarathon distances — let's see how that goes.",
   },
   {
-    icon: "🖨️",
     title: "3D Printing & Hardware",
     tag: "Maker",
     description:
       "I love designing and 3D printing practical everyday objects. My daily carry is a custom slim wallet I designed and printed with an embedded NFC chip inside for gym turnstile access.",
   },
   {
-    icon: "🍝",
     title: "Italian Cooking",
     tag: "Kitchen",
     description:
@@ -117,15 +114,10 @@ const interests = [
         {interests.map(item => (
           <div class="border-border/80 bg-muted/20 hover:border-accent hover:bg-muted/35 hover:-translate-y-0.5 rounded-xl border p-5 flex flex-col justify-between transition-all duration-200 shadow-xs hover:shadow-md">
             <div>
-              <div class="flex items-center justify-between">
-                <span class="text-2xl" role="img" aria-label={item.title}>
-                  {item.icon}
-                </span>
-                <span class="border border-border/70 bg-muted/40 text-accent font-mono text-[11px] rounded-md px-2 py-0.5">
-                  {item.tag}
-                </span>
-              </div>
-              <h3 class="mt-3 font-semibold text-foreground text-base leading-snug">
+              <span class="border border-border/70 bg-muted/40 text-accent font-mono text-[11px] font-semibold rounded-md px-2 py-0.5">
+                {item.tag}
+              </span>
+              <h3 class="mt-2.5 font-semibold text-foreground text-base leading-snug">
                 {item.title}
               </h3>
               <p class="mt-2 text-xs sm:text-sm leading-relaxed opacity-80">
